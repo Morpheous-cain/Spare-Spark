@@ -21,6 +21,10 @@ yarn-error.log*
 
 # local env files
 .env*.local
+/context
+/session-memories
+/hawks/context
+
 
 # vercel
 .vercel
