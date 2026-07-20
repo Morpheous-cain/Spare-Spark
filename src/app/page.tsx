@@ -370,28 +370,45 @@ export default function Home() {
             </span>
           </Link>
 
-          <NavigationMenu>
-            <NavigationMenuList className="hidden md:flex items-center space-x-1">
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>How it works</NavigationMenuTrigger>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Services</NavigationMenuTrigger>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Parts</NavigationMenuTrigger>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Trust</NavigationMenuTrigger>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/auth/sign-in" className="bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-90 text-white px-4 py-2 rounded-lg text-sm font-medium transition-opacity">
-                  Sign In
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          {/* Pill Navigation - Desktop */}
+          <nav className="hidden md:flex items-center gap-1 bg-gray-100 dark:bg-gray-800/50 rounded-xl p-1">
+            <Link
+              href="#how-it-works"
+              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              How it works
+            </Link>
+            <Link
+              href="#services"
+              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Services
+            </Link>
+            <Link
+              href="#parts"
+              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              onClick={() => document.getElementById('parts')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Parts
+            </Link>
+            <Link
+              href="#trust"
+              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              onClick={() => document.getElementById('trust')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Trust
+            </Link>
+            <Link
+              href="/auth/sign-in"
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90 transition-opacity"
+            >
+              Sign In
+            </Link>
+          </nav>
 
+          {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
@@ -409,10 +426,10 @@ export default function Home() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden border-t border-gray-200/50 px-4 py-4 space-y-2 bg-white"
           >
-            <Link href="#how-it-works" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>How it works</Link>
-            <Link href="#services" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
-            <Link href="#parts" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Parts</Link>
-            <Link href="#trust" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Trust</Link>
+            <Link href="#how-it-works" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => { document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); setIsMobileMenuOpen(false) }}>How it works</Link>
+            <Link href="#services" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => { document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); setIsMobileMenuOpen(false) }}>Services</Link>
+            <Link href="#parts" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => { document.getElementById('parts')?.scrollIntoView({ behavior: 'smooth' }); setIsMobileMenuOpen(false) }}>Parts</Link>
+            <Link href="#trust" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-100" onClick={() => { document.getElementById('trust')?.scrollIntoView({ behavior: 'smooth' }); setIsMobileMenuOpen(false) }}>Trust</Link>
             <Link href="/auth/sign-in" className="block w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white px-3 py-2 rounded-md font-medium text-center" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
           </motion.div>
         )}

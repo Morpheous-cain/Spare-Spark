@@ -29,7 +29,7 @@ interface NavItem {
 }
 
 const customerNav: NavItem[] = [
-  { label: "Dashboard", href: "/customer", icon: LayoutDashboard },
+  { label: "Dashboard", href: "/customer/dashboard", icon: LayoutDashboard },
   { label: "Bookings", href: "/customer/bookings", icon: CalendarCheck },
   { label: "Vehicles", href: "/customer/vehicles", icon: Car },
   { label: "Parts", href: "/customer/parts", icon: Package },
@@ -37,7 +37,7 @@ const customerNav: NavItem[] = [
 ]
 
 const mechanicNav: NavItem[] = [
-  { label: "Dashboard", href: "/mechanic", icon: LayoutDashboard },
+  { label: "Dashboard", href: "/mechanic/dashboard", icon: LayoutDashboard },
   { label: "Job Radar", href: "/mechanic/jobs", icon: Radar },
   { label: "Active Job", href: "/mechanic/jobs/active", icon: Briefcase },
   { label: "Earnings", href: "/mechanic/earnings", icon: DollarSign },
