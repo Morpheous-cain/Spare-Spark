@@ -22,5 +22,5 @@ export async function POST() {
   )
 
   await supabase.auth.signOut()
-  redirect("/")
+  redirect("/auth/sign-in")
 }

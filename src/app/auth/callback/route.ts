@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
       if (user) {
         const { data: mechanicProfile } = await supabase.from("mechanic_profiles").select("id, kyc_status").eq("id", user.id).single()
         const isMechanic = mechanicProfile && mechanicProfile.kyc_status === "APPROVED"
-        return NextResponse.redirect(`${origin}${isMechanic ? "/mechanic" : "/customer"}`)
+        return NextResponse.redirect(`${origin}${isMechanic ? "/mechanic/dashboard" : "/customer/dashboard"}`)
       }
       return NextResponse.redirect(`${origin}${next}`)
     }

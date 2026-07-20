@@ -167,15 +167,15 @@ const howItWorksSteps = [
 // Phone Screen Components for How It Works
 function PhoneScreenRequestHelp() {
   return (
-    <div className="space-y-4">
-      <div className="text-center mb-4">
-        <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center">
-          <Car className="h-8 w-8 text-white" />
+    <div className="space-y-5">
+      <div className="text-center mb-5">
+        <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center">
+          <Car className="h-10 w-10 text-white" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">How can we help?</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-1">How can we help?</h3>
         <p className="text-gray-500 text-sm">Select your issue type</p>
       </div>
-      <div className="grid gap-2 grid-cols-2">
+      <div className="grid gap-3 grid-cols-2">
         {[
           { icon: AlertTriangle, label: "Flat Tyre", color: "bg-red-500" },
           { icon: Zap, label: "Dead Battery", color: "bg-yellow-500" },
@@ -186,13 +186,13 @@ function PhoneScreenRequestHelp() {
             key={item.label}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="p-3 rounded-xl bg-white border border-gray-200 text-left shadow-sm hover:border-orange-300 hover:shadow-md transition-all"
+            className="p-4 rounded-xl bg-white border border-gray-200 text-left shadow-sm hover:border-orange-300 hover:shadow-md transition-all min-h-[80px]"
           >
-            <div className="flex items-center gap-2">
-              <div className={`w-8 h-8 rounded-lg ${item.color} flex items-center justify-center`}>
-                <item.icon className="h-4 w-4 text-white" />
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-lg ${item.color} flex items-center justify-center flex-shrink-0`}>
+                <item.icon className="h-5 w-5 text-white" />
               </div>
-              <span className="font-medium text-sm text-gray-900">{item.label}</span>
+              <span className="font-medium text-base text-gray-900">{item.label}</span>
             </div>
           </motion.button>
         ))}
@@ -200,7 +200,7 @@ function PhoneScreenRequestHelp() {
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold shadow-lg shadow-orange-500/25"
+        className="w-full mt-3 py-4 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold text-base shadow-lg shadow-orange-500/25"
       >
         Request Help Now
       </motion.button>
@@ -210,61 +210,61 @@ function PhoneScreenRequestHelp() {
 
 function PhoneScreenTrack() {
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-3 mb-4 p-3 bg-orange-50 rounded-xl border border-orange-100">
+    <div className="space-y-5">
+      <div className="flex items-center gap-3 mb-4 p-4 bg-orange-50 rounded-xl border border-orange-100">
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-2 h-2 bg-orange-500 rounded-full"
+          className="w-3 h-3 bg-orange-500 rounded-full flex-shrink-0"
         />
         <div>
-          <p className="font-medium text-gray-900 text-sm">Live Tracking</p>
+          <p className="font-medium text-gray-900 text-base">Live Tracking</p>
           <p className="text-xs text-orange-600">Mechanic en route</p>
         </div>
       </div>
-      <div className="bg-white rounded-2xl p-3 border border-gray-100">
+      <div className="bg-white rounded-2xl p-4 border border-gray-100">
         {/* Mini Map */}
         <div className="aspect-square bg-gradient-to-br from-orange-100 to-amber-100 rounded-xl flex items-center justify-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2240%22 height=%2240%22 viewBox=%220 0 40 40%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M20 0h20v20H20V0zm0 20h20v20H20v-20z%22 fill=%22%23f97316%22 fill-opacity=%220.1%22/%3E%3C/svg%3E')]" />
-          <Car className="h-6 w-6 text-orange-500 z-10" />
+          <Car className="h-8 w-8 text-orange-500 z-10" />
           <motion.div
             animate={{ x: [0, 50, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="absolute bottom-4 right-4 w-3 h-3 bg-orange-500 rounded-full animate-ping"
+            className="absolute bottom-4 right-4 w-4 h-4 bg-orange-500 rounded-full animate-ping"
           />
         </div>
       </div>
-      <div className="grid gap-2 grid-cols-2 text-center">
-        <div className="p-3 bg-white rounded-xl border border-gray-100">
-          <div className="font-bold text-orange-600 text-xl">2.3</div>
+      <div className="grid gap-3 grid-cols-2 text-center">
+        <div className="p-4 bg-white rounded-xl border border-gray-100">
+          <div className="font-bold text-orange-600 text-2xl">2.3</div>
           <div className="text-xs text-gray-500">km away</div>
         </div>
-        <div className="p-3 bg-white rounded-xl border border-gray-100">
-          <div className="font-bold text-orange-600 text-xl">8</div>
+        <div className="p-4 bg-white rounded-xl border border-gray-100">
+          <div className="font-bold text-orange-600 text-2xl">8</div>
           <div className="text-xs text-gray-500">min ETA</div>
         </div>
       </div>
-      <div className="h-4 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-5 bg-gray-100 rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-gradient-to-r from-orange-500 to-amber-500 rounded-full"
           animate={{ width: ['0%', '65%', '65%'] }}
           transition={{ duration: 1.5, delay: 0.5 }}
         />
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="flex-1 py-2 rounded-xl bg-white text-orange-600 font-medium border border-orange-200"
+          className="flex-1 py-3.5 rounded-xl bg-white text-orange-600 font-medium border border-orange-200 flex items-center justify-center gap-2"
         >
-          <MessageSquare className="h-4 w-4 mr-1 inline" /> Chat
+          <MessageSquare className="h-5 w-5" /> Chat
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="flex-1 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-medium"
+          className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-medium flex items-center justify-center gap-2"
         >
-          <Phone className="h-4 w-4 mr-1 inline" /> Call
+          <Phone className="h-5 w-5" /> Call
         </motion.button>
       </div>
     </div>
@@ -273,12 +273,12 @@ function PhoneScreenTrack() {
 
 function PhoneScreenComplete() {
   return (
-    <div className="space-y-4">
-      <div className="text-center mb-4 p-4 bg-green-50 rounded-2xl border border-green-100">
-        <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center">
-          <CheckCircle className="h-8 w-8 text-white" />
+    <div className="space-y-5">
+      <div className="text-center mb-4 p-5 bg-green-50 rounded-2xl border border-green-100">
+        <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center">
+          <CheckCircle className="h-10 w-10 text-white" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">Service Complete!</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-1">Service Complete!</h3>
         <p className="text-gray-500 text-sm">Peter Mwangi finished the repair</p>
       </div>
       <div className="space-y-3">
@@ -291,21 +291,21 @@ function PhoneScreenComplete() {
           <motion.div
             key={item.label}
             whileHover={{ x: 4 }}
-            className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100"
+            className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-100"
           >
-            <item.icon className="h-6 w-6 text-orange-500" />
-            <div className="flex-1">
-              <p className="font-medium text-sm text-gray-900">{item.label}</p>
-              <p className="text-xs text-gray-500">{item.desc}</p>
+            <item.icon className="h-7 w-7 text-orange-500 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-base text-gray-900">{item.label}</p>
+              <p className="text-sm text-gray-500">{item.desc}</p>
             </div>
-            <CheckCircle className="h-5 w-5 text-green-500" />
+            <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0" />
           </motion.div>
         ))}
       </div>
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold"
+        className="w-full py-4 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold text-base"
       >
         Rate & Review
       </motion.button>
@@ -315,15 +315,15 @@ function PhoneScreenComplete() {
 
 function PhoneScreenParts() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div className="text-center mb-4">
-        <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
-          <Package className="h-8 w-8 text-white" />
+        <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+          <Package className="h-10 w-10 text-white" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">Spare Parts Marketplace</h3>
+        <h3 className="text-xl font-semibold text-gray-900 mb-1">Spare Parts Marketplace</h3>
         <p className="text-gray-500 text-sm">Order genuine parts delivered to you</p>
       </div>
-      <div className="space-y-2 max-h-48 overflow-y-auto">
+      <div className="space-y-3 max-h-72 overflow-y-auto">
         {[
           { name: "Brake Pads (Toyota)", price: "KES 2,500", icon: Battery },
           { name: "Car Battery 12V", price: "KES 8,500", icon: Battery },
@@ -333,21 +333,21 @@ function PhoneScreenParts() {
           <motion.div
             key={part.name}
             whileHover={{ x: 4 }}
-            className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100"
+            className="flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-100"
           >
-            <part.icon className="h-6 w-6 text-orange-500" />
-            <div className="flex-1">
-              <p className="font-medium text-sm text-gray-900">{part.name}</p>
-              <p className="text-xs text-gray-500">In stock • Free delivery</p>
+            <part.icon className="h-7 w-7 text-orange-500 flex-shrink-0" />
+            <div className="flex-1 min-w-0">
+              <p className="font-medium text-base text-gray-900">{part.name}</p>
+              <p className="text-sm text-gray-500">In stock • Free delivery</p>
             </div>
-            <span className="font-bold text-orange-600 text-sm">{part.price}</span>
+            <span className="font-bold text-orange-600 text-base">{part.price}</span>
           </motion.div>
         ))}
       </div>
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold"
+        className="w-full py-4 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold text-base"
       >
         Browse All Parts
       </motion.button>
@@ -419,22 +419,7 @@ export default function Home() {
       </header>
 
       <main>
-        <section id="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent">
-          <div className="absolute inset-0">
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-amber-500/5 to-transparent"
-              animate={{ backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'] }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            />
-            <motion.div className="absolute top-1/4 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl"
-              animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
-              transition={{ duration: 15, repeat: Infinity }}
-            />
-            <motion.div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"
-              animate={{ x: [0, -50, 0], y: [0, 30, 0] }}
-              transition={{ duration: 18, repeat: Infinity, delay: 2 }}
-            />
-          </div>
+        <section id="hero" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
 
           <motion.div
             initial="hidden"
@@ -558,20 +543,20 @@ export default function Home() {
                 <div className="relative mx-auto max-w-xs lg:max-w-sm">
                   <motion.div
                     className="relative mx-auto"
-                    style={{ width: '280px', aspectRatio: '9/19.5' }}
+                    style={{ width: '340px', aspectRatio: '9/19.5' }}
                   >
-                    <div className="absolute inset-0 bg-gray-900 rounded-[40px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]" />
-                    <div className="absolute inset-4 bg-gray-50 rounded-[36px] p-1 flex flex-col items-center justify-between">
-                      <div className="flex items-center justify-between px-4 py-2 text-xs text-gray-500">
+                    <div className="absolute inset-0 bg-gray-900 rounded-[48px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]" />
+                    <div className="absolute inset-4 bg-gray-50 rounded-[44px] p-1.5 flex flex-col items-center justify-between">
+                      <div className="flex items-center justify-between px-5 py-3 text-xs text-gray-500 w-full">
                         <span>9:41</span>
-                        <div className="flex items-center gap-1">
-                          <div className="w-6 h-3 bg-green-500 rounded-full flex items-center justify-start p-0.5">
-                            <div className="w-2 h-2 bg-white rounded-full" />
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-7 h-3.5 bg-green-500 rounded-full flex items-center justify-start p-0.5">
+                            <div className="w-2.5 h-2.5 bg-white rounded-full" />
                           </div>
                         </div>
                       </div>
-                      <div className="flex-1 flex items-center justify-center px-4">
-                        <div className="w-full bg-white rounded-2xl p-4 shadow-lg max-h-64 overflow-hidden">
+                      <div className="flex-1 flex items-center justify-center px-5 w-full overflow-hidden">
+                        <div className="w-full bg-white rounded-3xl p-5 shadow-lg max-h-80 overflow-hidden">
                           <div className="text-center">
                             <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center">
                               <Car className="h-8 w-8 text-white" />
@@ -598,24 +583,24 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      <div className="w-24 h-1.5 bg-gray-300 rounded-full mx-auto mb-2" />
+                      <div className="w-28 h-2 bg-gray-300 rounded-full mx-auto mb-3" />
                     </div>
                   </motion.div>
 
                   <motion.div
                     animate={{ y: [0, 20, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-2xl"
+                    className="absolute -bottom-10 -right-10 w-28 h-28 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-2xl"
                   >
-                    <Car className="h-12 w-12 text-white" />
+                    <Car className="h-14 w-14 text-white" />
                   </motion.div>
 
                   <motion.div
                     animate={{ x: [0, -15, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -top-4 -left-4 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30"
+                    className="absolute -top-4 -left-4 w-18 h-18 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30"
                   >
-                    <MapPinIcon className="h-8 w-8 text-orange-400" />
+                    <MapPinIcon className="h-9 w-9 text-orange-400" />
                   </motion.div>
                 </div>
               </div>
@@ -705,22 +690,22 @@ export default function Home() {
                     {/* Phone Frame */}
                     <motion.div
                       className="relative mx-auto"
-                      style={{ width: '280px', aspectRatio: '9/19.5' }}
+                      style={{ width: '340px', aspectRatio: '9/19.5' }}
                     >
-                      <div className="absolute inset-0 bg-gray-900 rounded-[40px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]" />
-                      <div className="absolute inset-4 bg-gray-50 rounded-[36px] p-1 flex flex-col items-center justify-between">
+                      <div className="absolute inset-0 bg-gray-900 rounded-[48px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]" />
+                      <div className="absolute inset-4 bg-gray-50 rounded-[44px] p-1.5 flex flex-col items-center justify-between">
                         {/* Status Bar */}
-                        <div className="flex items-center justify-between px-4 py-2 text-xs text-gray-500 w-full">
+                        <div className="flex items-center justify-between px-5 py-3 text-xs text-gray-500 w-full">
                           <span>9:41</span>
-                          <div className="flex items-center gap-1">
-                            <div className="w-6 h-3 bg-green-500 rounded-full flex items-center justify-start p-0.5">
-                              <div className="w-2 h-2 bg-white rounded-full" />
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-7 h-3.5 bg-green-500 rounded-full flex items-center justify-start p-0.5">
+                              <div className="w-2.5 h-2.5 bg-white rounded-full" />
                             </div>
                           </div>
                         </div>
 
                         {/* Dynamic Screen Content */}
-                        <div className="flex-1 flex items-center justify-center px-4 w-full overflow-hidden">
+                        <div className="flex-1 flex items-center justify-center px-5 w-full overflow-hidden">
                           <AnimatePresence mode="wait">
                             <motion.div
                               key={activeScreen}
@@ -728,7 +713,7 @@ export default function Home() {
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: -20 }}
                               transition={{ duration: 0.3, ease: "easeOut" }}
-                              className="w-full bg-white rounded-2xl p-4 shadow-lg max-h-64 overflow-hidden"
+                              className="w-full bg-white rounded-3xl p-5 shadow-lg max-h-80 overflow-hidden"
                             >
                               {activeScreen === "request" && <PhoneScreenRequestHelp />}
                               {activeScreen === "track" && <PhoneScreenTrack />}
@@ -739,7 +724,7 @@ export default function Home() {
                         </div>
 
                         {/* Home Indicator */}
-                        <div className="w-24 h-1.5 bg-gray-300 rounded-full mx-auto mb-2" />
+                        <div className="w-28 h-2 bg-gray-300 rounded-full mx-auto mb-3" />
                       </div>
                     </motion.div>
 
@@ -747,17 +732,17 @@ export default function Home() {
                     <motion.div
                       animate={{ y: [0, 20, 0] }}
                       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-2xl"
+                      className="absolute -bottom-10 -right-10 w-28 h-28 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-2xl"
                     >
-                      <Car className="h-12 w-12 text-white" />
+                      <Car className="h-14 w-14 text-white" />
                     </motion.div>
 
                     <motion.div
                       animate={{ x: [0, -15, 0] }}
                       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute -top-4 -left-4 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30"
+                      className="absolute -top-4 -left-4 w-18 h-18 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30"
                     >
-                      <MapPin className="h-8 w-8 text-orange-400" />
+                      <MapPin className="h-9 w-9 text-orange-400" />
                     </motion.div>
                   </div>
                 </div>
@@ -793,17 +778,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="services" className="py-20 bg-gray-50/50">
+        <section id="services" className="py-24 bg-gradient-to-b from-gray-50/50 to-white">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeInUp}
-              className="text-center mb-12"
+              className="text-center mb-16"
             >
-              <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">Our Services</h2>
-              <p className="text-gray-600 max-w-xl mx-auto">
+              <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl">Our Services</h2>
+              <p className="text-gray-600 max-w-xl mx-auto text-lg">
                 From emergency roadside repairs to scheduled maintenance, we've got you covered.
               </p>
             </motion.div>
@@ -812,7 +797,7 @@ export default function Home() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={containerVariants}
-              className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
             >
               {services.map((service, index) => (
                 <motion.div
@@ -820,23 +805,23 @@ export default function Home() {
                   variants={itemVariants}
                   style={{ transitionDelay: `${index * 0.1}s` }}
                 >
-                  <Card className="h-64 flex flex-col hover:shadow-lg transition-shadow border-orange-100">
-                    <CardHeader>
+                  <Card className="group h-full flex flex-col hover:shadow-xl transition-all duration-300 border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-orange-500/5">
+                    <CardHeader className="pb-4">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mb-4"
+                        className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center mb-5 shadow-lg shadow-orange-500/25"
                       >
-                        <service.icon className="h-6 w-6 text-orange-500" />
+                        <service.icon className="h-7 w-7 text-white" />
                       </motion.div>
-                      <CardTitle>{service.title}</CardTitle>
-                      <CardDescription>{service.desc}</CardDescription>
+                      <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
+                      <CardDescription className="text-base">{service.desc}</CardDescription>
                     </CardHeader>
                     <CardContent className="flex-1 pt-0">
-                      <ul className="space-y-1 text-sm text-gray-600">
-                        {service.items.slice(0, 3).map((item) => (
-                          <li key={item} className="flex items-center gap-2">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            {item}
+                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        {service.items.map((item) => (
+                          <li key={item} className="flex items-center gap-2.5 group-hover:translate-x-1 transition-transform">
+                            <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
+                            <span className="font-medium">{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -848,17 +833,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="parts" className="py-20 bg-white">
+        <section id="parts" className="py-24 bg-gradient-to-b from-white to-gray-50/50">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeInUp}
-              className="text-center mb-12"
+              className="text-center mb-16"
             >
-              <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">Spare Parts Marketplace</h2>
-              <p className="text-gray-600 max-w-xl mx-auto">
+              <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl">Spare Parts Marketplace</h2>
+              <p className="text-gray-600 max-w-xl mx-auto text-lg">
                 Get genuine parts delivered to your door or mechanic's location.
               </p>
             </motion.div>
@@ -875,27 +860,27 @@ export default function Home() {
                   variants={itemVariants}
                   style={{ transitionDelay: `${index * 0.1}s` }}
                 >
-                  <Card className="h-72 flex flex-col hover:shadow-lg transition-shadow border-orange-100">
-                    <CardHeader>
+                  <Card className="group h-full flex flex-col hover:shadow-xl transition-all duration-300 border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-lg shadow-orange-500/5">
+                    <CardHeader className="pb-4">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center mb-4"
+                        className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-5 shadow-lg shadow-purple-500/25"
                       >
-                        <part.icon className="h-6 w-6 text-orange-500" />
+                        <part.icon className="h-7 w-7 text-white" />
                       </motion.div>
-                      <CardTitle>{part.name}</CardTitle>
-                      <CardDescription className="mb-4">{part.desc}</CardDescription>
-                      <p className="text-orange-600 font-bold text-lg">{part.price}</p>
+                      <CardTitle className="text-xl font-bold">{part.name}</CardTitle>
+                      <CardDescription className="text-base mb-4">{part.desc}</CardDescription>
+                      <p className="text-orange-600 font-bold text-xl">{part.price}</p>
                     </CardHeader>
                     <CardContent className="flex-1 flex flex-col justify-between pt-0">
                       <div className="flex items-center justify-between">
-                        <span className="text-green-600 font-medium">In Stock</span>
+                        <span className="text-emerald-600 font-medium bg-emerald-50 px-3 py-1 rounded-full text-sm">In Stock</span>
                       </div>
                       <Link
                         href="/auth/sign-in"
-                        className="w-full"
+                        className="w-full mt-4"
                       >
-                        <Button className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-90">Order Now</Button>
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white font-semibold py-3 rounded-xl">Order Now</Button>
                       </Link>
                     </CardContent>
                   </Card>
@@ -905,8 +890,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="trust" className="py-20 bg-gray-50/50">
-          <div className="container mx-auto px-4">
+        <section id="trust" className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #fff7ed 0%, #ffffff 50%, #fffbeb 100%)' }}>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M30 0h30v30H30V0zm0 30h30v30H30v-30z%22 fill=%22%23f97316%22 fill-opacity=%220.03%22/%3E%3C/svg%3E')]" />
+          <div className="relative container mx-auto px-4">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -932,13 +918,13 @@ export default function Home() {
                   variants={itemVariants}
                   style={{ transitionDelay: `${index * 0.1}s` }}
                 >
-                  <Card className="text-center hover:shadow-lg transition-shadow">
+                  <Card className="text-center hover:shadow-2xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm shadow-lg">
                     <CardHeader>
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="mx-auto mb-4 w-14 h-14 rounded-xl bg-orange-50 flex items-center justify-center"
+                        className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-500/25"
                       >
-                        <item.icon className="h-7 w-7 text-orange-500" />
+                        <item.icon className="h-7 w-7 text-white" />
                       </motion.div>
                       <CardTitle>{item.title}</CardTitle>
                       <CardDescription>{item.desc}</CardDescription>
@@ -955,22 +941,28 @@ export default function Home() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
-          className="py-20 bg-gradient-to-r from-orange-500 to-amber-500 text-white"
+          className="py-24 relative overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f59e0b 100%)' }}
         >
-          <div className="container mx-auto px-4">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2280%22 height=%2280%22 viewBox=%220 0 80 80%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M40 0h40v40H40V0zm0 40h40v40H40v-40z%22 fill=%22%23ffffff%22 fill-opacity=%220.05%22/%3E%3C/svg%3E')]" />
+          <div className="absolute inset-0">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          </div>
+          <div className="relative container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className="text-center lg:text-left">
-                <h2 className="mb-6 text-3xl font-bold sm:text-4xl lg:text-5xl leading-tight">
+                <h2 className="mb-6 text-3xl font-bold sm:text-4xl lg:text-5xl leading-tight text-white">
                   Ready when you need us most
                 </h2>
-                <p className="mb-10 text-xl text-white/90 max-w-xl lg:mx-0">
+                <p className="mb-10 text-xl text-white/90 max-w-xl lg:mx-0 leading-relaxed">
                   Download Sparespark today and get peace of mind on Kenya's roads.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <motion.button
                     whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="bg-white/20 hover:bg-white/30 border-white/20 text-lg px-8 py-4 rounded-xl"
+                    className="bg-white text-orange-600 hover:bg-white/90 text-lg px-8 py-4 rounded-xl font-semibold shadow-lg"
                   >
                     <Apple className="mr-2 h-6 w-6" />
                     App Store
@@ -978,7 +970,7 @@ export default function Home() {
                   <motion.button
                     whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(0,0,0,0.3)" }}
                     whileTap={{ scale: 0.98 }}
-                    className="bg-white/20 hover:bg-white/30 border-white/20 text-lg px-8 py-4 rounded-xl"
+                    className="bg-white/20 hover:bg-white/30 border-2 border-white/30 text-white text-lg px-8 py-4 rounded-xl font-semibold"
                   >
                     <MonitorSmartphone className="mr-2 h-6 w-6" />
                     Google Play
@@ -991,19 +983,19 @@ export default function Home() {
 
               <div className="relative lg:order-first">
                 <div className="relative mx-auto max-w-xs lg:max-w-sm">
-                  <div className="relative mx-auto" style={{ width: '280px', aspectRatio: '9/19.5' }}>
-                    <div className="absolute inset-0 bg-gray-900 rounded-[40px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]" />
-                    <div className="absolute inset-4 bg-gray-50 rounded-[36px] p-1 flex flex-col items-center justify-between">
-                      <div className="flex items-center justify-between px-4 py-2 text-xs text-gray-500">
+                  <div className="relative mx-auto" style={{ width: '340px', aspectRatio: '9/19.5' }}>
+                    <div className="absolute inset-0 bg-gray-900 rounded-[48px] shadow-[0_30px_60px_-12px_rgba(0,0,0,0.4)]" />
+                    <div className="absolute inset-4 bg-gray-50 rounded-[44px] p-1.5 flex flex-col items-center justify-between">
+                      <div className="flex items-center justify-between px-5 py-3 text-xs text-gray-500 w-full">
                         <span>9:41</span>
-                        <div className="flex items-center gap-1">
-                          <div className="w-6 h-3 bg-green-500 rounded-full flex items-center justify-start p-0.5">
-                            <div className="w-2 h-2 bg-white rounded-full" />
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-7 h-3.5 bg-green-500 rounded-full flex items-center justify-start p-0.5">
+                            <div className="w-2.5 h-2.5 bg-white rounded-full" />
                           </div>
                         </div>
                       </div>
-                      <div className="flex-1 flex items-center justify-center px-4">
-                        <div className="w-full bg-white rounded-2xl p-4 shadow-lg max-h-64 overflow-hidden">
+                      <div className="flex-1 flex items-center justify-center px-5 w-full overflow-hidden">
+                        <div className="w-full bg-white rounded-3xl p-5 shadow-lg max-h-80 overflow-hidden">
                           <div className="text-center">
                             <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center">
                               <Car className="h-8 w-8 text-white" />
@@ -1030,24 +1022,24 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      <div className="w-24 h-1.5 bg-gray-300 rounded-full mx-auto mb-2" />
+                      <div className="w-28 h-2 bg-gray-300 rounded-full mx-auto mb-3" />
                     </div>
                   </div>
 
                   <motion.div
                     animate={{ y: [0, 20, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-2xl"
+                    className="absolute -bottom-10 -right-10 w-28 h-28 bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-2xl"
                   >
-                    <Car className="h-12 w-12 text-white" />
+                    <Car className="h-14 w-14 text-white" />
                   </motion.div>
 
                   <motion.div
                     animate={{ x: [0, -15, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute -top-4 -left-4 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30"
+                    className="absolute -top-4 -left-4 w-18 h-18 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30"
                   >
-                    <MapPin className="h-8 w-8 text-orange-400" />
+                    <MapPin className="h-9 w-9 text-orange-400" />
                   </motion.div>
                 </div>
               </div>

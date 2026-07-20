@@ -30,8 +30,8 @@ export function SignInForm() {
     if (error) {
       setError(error.message)
     } else {
-      // Redirect to home - middleware will handle role-based redirect
-      window.location.href = "/"
+      // Redirect to home - middleware will handle role-based redirect to proper dashboard
+      window.location.href = "/customer/dashboard"
     }
     setLoading(false)
   }
