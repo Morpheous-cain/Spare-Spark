@@ -410,7 +410,7 @@ function VehicleStep({ vehicles, setVehicles, selectedVehicle, setSelectedVehicl
 
       {vehicles.length > 0 && (
         <div className="space-y-3">
-          {vehicles.map((vehicle, idx) => (
+          {vehicles.map((vehicle: any, idx: number) => (
             <motion.button
               key={vehicle.id}
               variants={cardEntrance}
@@ -512,7 +512,7 @@ function VehicleStep({ vehicles, setVehicles, selectedVehicle, setSelectedVehicl
   )
 }
 
-function LocationStep({ location, setLocation }: any) {
+function LocationStep({ location, setLocation }: { location: { address: string; lat: number | null; lng: number | null }; setLocation: (loc: { address: string; lat: number | null; lng: number | null } | ((prev: { address: string; lat: number | null; lng: number | null }) => { address: string; lat: number | null; lng: number | null })) => void }) {
   const handleUseLocation = () => {
     if (!navigator.geolocation) return
     navigator.geolocation.getCurrentPosition(pos => {
@@ -613,7 +613,7 @@ function DetailsStep({ serviceCategory, setServiceCategory, problemDescription, 
           <div>
             <Label className="block text-sm font-medium text-text-secondary mb-1">Photos (Optional, up to 3)</Label>
             <div className="grid grid-cols-3 gap-3">
-              {photos.map((file, idx) => (
+              {photos.map((file: File, idx: number) => (
                 <div key={idx} className="relative aspect-square rounded-xl overflow-hidden bg-slate-surface border border-slate-border">
                   <img src={URL.createObjectURL(file)} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
                   <button type="button" onClick={() => removePhoto(idx)} className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-red-500">

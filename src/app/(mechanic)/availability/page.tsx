@@ -385,7 +385,8 @@ export default function AvailabilityPage() {
                   <Button type="button" variant="outline" onClick={() => setShowTimeOffModal(false)} className="flex-1 border-slate-border text-slate-300 hover:bg-slate-700/40">Cancel</Button>
                   <Button type="submit" className="flex-1 bg-amber-burst text-white shadow-amber-glow hover:opacity-90 rounded-xl min-h-[56px]">Add Time Off</Button>
                 </div>
-              </form            </motion.div>
+              </form>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
