@@ -59,24 +59,24 @@ const STATUS_ORDER = [
 ] as const
 
 const STATUS_CONFIG: Record<string, { label: string; icon: typeof CheckCircle; classes: string }> = {
-  PENDING:     { label: "Finding Mechanic", icon: Search,      classes: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300" },
-  MATCHED:     { label: "Matched",          icon: CheckCircle, classes: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300" },
-  ACCEPTED:    { label: "Accepted",         icon: CheckCircle, classes: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300" },
-  EN_ROUTE:    { label: "En Route",         icon: Navigation,  classes: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300" },
-  ARRIVED:     { label: "Arrived",          icon: MapPin,      classes: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300" },
-  IN_PROGRESS: { label: "In Progress",      icon: Wrench,      classes: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300" },
-  COMPLETED:   { label: "Completed",        icon: CheckCircle, classes: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300" },
-  CANCELLED:   { label: "Cancelled",        icon: XCircle,     classes: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300" },
-  DISPUTED:    { label: "Disputed",         icon: XCircle,     classes: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300" },
+  PENDING:     { label: "Finding Mechanic", icon: Search,      classes: "bg-amber-subtle text-amber-glow" },
+  MATCHED:     { label: "Matched",          icon: CheckCircle, classes: "bg-blue-500/15 text-blue-300" },
+  ACCEPTED:    { label: "Accepted",         icon: CheckCircle, classes: "bg-blue-500/15 text-blue-300" },
+  EN_ROUTE:    { label: "En Route",         icon: Navigation,  classes: "bg-amber-subtle text-amber-glow" },
+  ARRIVED:     { label: "Arrived",          icon: MapPin,      classes: "bg-violet-500/15 text-violet-300" },
+  IN_PROGRESS: { label: "In Progress",      icon: Wrench,      classes: "bg-emerald-500/15 text-emerald-300" },
+  COMPLETED:   { label: "Completed",        icon: CheckCircle, classes: "bg-emerald-500/15 text-emerald-300" },
+  CANCELLED:   { label: "Cancelled",        icon: XCircle,     classes: "bg-red-500/15 text-red-300" },
+  DISPUTED:    { label: "Disputed",         icon: XCircle,     classes: "bg-red-500/15 text-red-300" },
 }
 
 // ── Stat Card ────────────────────────────────────────────────────────
 
 const STAT_COLORS = {
-  orange: "bg-gradient-to-br from-orange-500/10 to-amber-500/10 text-orange-600 dark:text-orange-400",
-  green:  "bg-gradient-to-br from-emerald-500/10 to-green-500/10 text-emerald-600 dark:text-emerald-400",
-  amber:  "bg-gradient-to-br from-amber-500/10 to-yellow-500/10 text-amber-600 dark:text-amber-400",
-  purple: "bg-gradient-to-br from-purple-500/10 to-violet-500/10 text-purple-600 dark:text-purple-400",
+  orange: "bg-amber-subtle text-amber-glow",
+  green:  "bg-emerald-500/15 text-emerald-400",
+  amber:  "bg-amber-400/15 text-amber-400",
+  purple: "bg-violet-500/15 text-violet-400",
 } as const
 
 function StatCard({
@@ -87,28 +87,28 @@ function StatCard({
 }) {
   if (loading) {
     return (
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+      <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
         <CardContent className="flex items-center justify-between p-5">
           <div className="space-y-2">
-            <Skeleton className="h-3.5 w-20" />
-            <Skeleton className="h-7 w-16" />
+            <Skeleton className="h-3.5 w-20 bg-slate-700/40" />
+            <Skeleton className="h-7 w-16 bg-slate-700/40" />
           </div>
-          <Skeleton className="h-11 w-11 rounded-xl" />
+          <Skeleton className="h-11 w-11 rounded-xl bg-slate-700/40" />
         </CardContent>
       </Card>
     )
   }
 
   return (
-    <Card className="group border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200">
+    <Card className="group bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev transition-all duration-200 hover:shadow-[0px_16px_40px_rgba(0,0,0,0.5)]">
       <CardContent className="flex items-center justify-between p-5">
         <div>
-          <p className="text-[13px] font-medium text-muted-foreground mb-1">{label}</p>
-          <p className="text-2xl font-bold tracking-tight tabular-nums">{value}</p>
+          <p className="text-[13px] font-medium text-slate-400 mb-1">{label}</p>
+          <p className="text-2xl font-bold tracking-tight tabular-nums text-slate-100">{value}</p>
           {trend && (
             <p className={cn(
               "text-xs mt-1.5 flex items-center gap-1 font-medium",
-              trendUp ? "text-emerald-600 dark:text-emerald-400" : "text-red-500"
+              trendUp ? "text-emerald-400" : "text-red-400"
             )}>
               <TrendingUp className={cn("h-3 w-3", !trendUp && "rotate-180")} />
               {trend}
@@ -126,9 +126,9 @@ function StatCard({
 // ── Quick Action Card ────────────────────────────────────────────────
 
 const ACTION_COLORS = {
-  orange: "from-orange-500 to-amber-500",
-  amber:  "from-amber-500 to-yellow-500",
-  green:  "from-emerald-500 to-green-500",
+  orange: "amber-burst",
+  amber:  "amber-burst",
+  green:  "from-emerald-500 to-emerald-600",
 } as const
 
 function QuickActionCard({
@@ -144,7 +144,7 @@ function QuickActionCard({
       className={cn(
         "group relative p-5 rounded-2xl text-white overflow-hidden cursor-pointer",
         "bg-gradient-to-br", ACTION_COLORS[color],
-        "shadow-lg shadow-orange-500/10 hover:shadow-xl hover:shadow-orange-500/20 transition-shadow duration-300"
+        "shadow-lg shadow-amber-primary/20 hover:shadow-xl hover:shadow-amber-primary/30 transition-shadow duration-300"
       )}
     >
       <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
@@ -198,19 +198,19 @@ function ActiveJobTracker({ booking }: { booking: any }) {
 
   return (
     <motion.div initial="hidden" animate="visible" variants={cardEntrance}>
-      <Card className="relative border-0 shadow-lg overflow-hidden bg-gradient-to-br from-white to-orange-50/50 dark:from-gray-900 dark:to-orange-950/20">
+      <Card className="relative border-0 shadow-lg overflow-hidden bg-gradient-to-br from-obsidian-surface to-amber-subtle/20 border border-slate-border">
         {/* Accent bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 to-amber-400" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-amber-burst" />
 
         <CardHeader className="pb-2 pt-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center shadow-md shadow-orange-500/20">
+              <div className="w-10 h-10 rounded-xl bg-amber-burst flex items-center justify-center shadow-md shadow-amber-primary/30">
                 <StatusIcon className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h3 className="text-base font-bold">{booking.service_category?.replace(/_/g, " ") || "Service"}</h3>
-                <p className="text-xs text-muted-foreground">{formatDate(booking.created_at)}</p>
+                <h3 className="text-base font-bold text-slate-100">{booking.service_category?.replace(/_/g, " ") || "Service"}</h3>
+                <p className="text-xs text-slate-400">{formatDate(booking.created_at)}</p>
               </div>
             </div>
             <Badge className={cn("text-xs font-semibold", currentStatus.classes)}>
@@ -222,14 +222,14 @@ function ActiveJobTracker({ booking }: { booking: any }) {
         <CardContent className="space-y-4 pb-5">
           {/* Progress bar */}
           <div className="space-y-2">
-            <div className="flex justify-between text-[11px] text-muted-foreground font-medium">
+            <div className="flex justify-between text-[11px] text-slate-400 font-medium">
               <span>Finding</span>
               <span>En Route</span>
               <span>Complete</span>
             </div>
-            <div className="relative h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+            <div className="relative h-2 bg-slate-700/50 rounded-full overflow-hidden">
               <motion.div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-orange-500 to-amber-400 rounded-full"
+                className="absolute inset-y-0 left-0 bg-amber-burst rounded-full"
                 animate={{ width: `${progressPercent}%` }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               />
@@ -238,18 +238,18 @@ function ActiveJobTracker({ booking }: { booking: any }) {
 
           {/* Job info grid */}
           <div className="grid gap-2.5 sm:grid-cols-3">
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Vehicle</p>
-              <p className="font-semibold text-sm mt-0.5">{booking.vehicle?.make} {booking.vehicle?.model}</p>
-              <p className="text-xs text-muted-foreground font-mono">{booking.vehicle?.reg_number}</p>
+            <div className="p-3 bg-obsidian-surface border border-slate-border rounded-xl">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Vehicle</p>
+              <p className="font-semibold text-sm mt-0.5 text-slate-100">{booking.vehicle?.make} {booking.vehicle?.model}</p>
+              <p className="text-xs text-slate-400 font-mono">{booking.vehicle?.reg_number}</p>
             </div>
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Location</p>
-              <p className="font-semibold text-sm mt-0.5 truncate">{booking.location_address || "—"}</p>
+            <div className="p-3 bg-obsidian-surface border border-slate-border rounded-xl">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Location</p>
+              <p className="font-semibold text-sm mt-0.5 truncate text-slate-100">{booking.location_address || "—"}</p>
             </div>
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Price</p>
-              <p className="font-bold text-sm mt-0.5 text-orange-600 dark:text-orange-400 tabular-nums">
+            <div className="p-3 bg-obsidian-surface border border-slate-border rounded-xl">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Price</p>
+              <p className="font-bold text-sm mt-0.5 text-amber-glow tabular-nums">
                 {booking.agreed_price ? formatCurrency(booking.agreed_price) : "Pending"}
               </p>
             </div>
@@ -257,17 +257,17 @@ function ActiveJobTracker({ booking }: { booking: any }) {
 
           {/* Mechanic card + live tracking */}
           {booking.mechanic && (
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 space-y-3">
+            <div className="p-3 bg-obsidian-surface border border-slate-border rounded-xl space-y-3">
               <div className="flex items-center gap-3">
-                <Avatar className="h-10 w-10 border-2 border-orange-200 dark:border-orange-800">
+                <Avatar className="h-10 w-10 border-2 border-amber-primary/30">
                   <AvatarImage src={booking.mechanic.avatar_url} alt={booking.mechanic.full_name} />
-                  <AvatarFallback className="bg-gradient-to-br from-orange-500 to-amber-500 text-white font-bold">
+                  <AvatarFallback className="bg-amber-burst text-white font-bold">
                     {booking.mechanic.full_name?.charAt(0) || "M"}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm">{booking.mechanic.full_name}</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                  <p className="font-semibold text-sm text-slate-100">{booking.mechanic.full_name}</p>
+                  <p className="text-xs text-slate-400 flex items-center gap-1.5">
                     <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
                     {booking.mechanic.rating_avg || "4.9"} · {booking.mechanic.total_jobs || 0} jobs
                   </p>
@@ -275,34 +275,34 @@ function ActiveJobTracker({ booking }: { booking: any }) {
               </div>
 
               {["EN_ROUTE", "ARRIVED"].includes(booking.status) && (
-                <div className="p-2.5 bg-orange-50 dark:bg-orange-950/30 rounded-lg border border-orange-100 dark:border-orange-900/50">
+                <div className="p-2.5 bg-amber-subtle rounded-lg border border-amber-primary/20">
                   <div className="flex items-center justify-between text-xs mb-2">
-                    <span className="font-medium text-muted-foreground">Live Tracking</span>
-                    <span className="flex items-center gap-1.5 text-orange-600 dark:text-orange-400 font-semibold">
+                    <span className="font-medium text-slate-400">Live Tracking</span>
+                    <span className="flex items-center gap-1.5 text-amber-glow font-semibold">
                       <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-glow opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-primary" />
                       </span>
                       LIVE
                     </span>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="h-3.5 w-3.5 text-orange-500" />
-                      <span className="text-muted-foreground">Distance</span>
+                      <MapPin className="h-3.5 w-3.5 text-amber-primary" />
+                      <span className="text-slate-400">Distance</span>
                     </div>
-                    <span className="font-semibold text-orange-600 dark:text-orange-400 text-right tabular-nums">
+                    <span className="font-semibold text-amber-glow text-right tabular-nums">
                       {mechanicLocation ? "2.3 km" : "Calculating..."}
                     </span>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="h-3.5 w-3.5 text-orange-500" />
-                      <span className="text-muted-foreground">ETA</span>
+                      <Clock className="h-3.5 w-3.5 text-amber-primary" />
+                      <span className="text-slate-400">ETA</span>
                     </div>
-                    <span className="font-semibold text-orange-600 dark:text-orange-400 text-right tabular-nums">
+                    <span className="font-semibold text-amber-glow text-right tabular-nums">
                       {booking.status === "ARRIVED" ? "Arrived!" : (eta ? `${eta} min` : "8 min")}
                     </span>
                   </div>
-                  <Progress value={booking.status === "ARRIVED" ? 100 : 65} className="h-1.5 mt-2.5" />
+                  <Progress value={booking.status === "ARRIVED" ? 100 : 65} className="h-1.5 mt-2.5 bg-slate-700/40" />
                 </div>
               )}
             </div>
@@ -321,7 +321,7 @@ function ActiveJobTracker({ booking }: { booking: any }) {
               </Button>
             )}
             {booking.status === "COMPLETED" && !booking.rating_submitted && (
-              <Button size="sm" className="gap-1.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90">
+              <Button size="sm" className="gap-1.5 bg-amber-burst text-white hover:opacity-90">
                 <Star className="h-3.5 w-3.5" /> Rate & Review
               </Button>
             )}
@@ -384,10 +384,10 @@ function VehiclesTab({ vehicles, setVehicles }: { vehicles: any[]; setVehicles: 
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold">My Vehicles</h2>
-          <p className="text-sm text-muted-foreground">Manage your registered vehicles</p>
+          <h2 className="text-lg font-bold text-slate-100">My Vehicles</h2>
+          <p className="text-sm text-slate-400">Manage your registered vehicles</p>
         </div>
-        <Button onClick={() => { resetForm(); setShowForm(true) }} size="sm" className="gap-1.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90">
+        <Button onClick={() => { resetForm(); setShowForm(true) }} size="sm" className="gap-1.5 bg-amber-burst text-white hover:opacity-90">
           <Plus className="h-4 w-4" /> Add Vehicle
         </Button>
       </div>
@@ -405,12 +405,12 @@ function VehiclesTab({ vehicles, setVehicles }: { vehicles: any[]; setVehicles: 
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-full max-w-md shadow-2xl border border-gray-100 dark:border-gray-800"
+              className="bg-obsidian-surface border border-slate-border rounded-2xl p-6 w-full max-w-md shadow-2xl"
             >
               <div className="flex items-center justify-between mb-5">
                 <h2 className="text-lg font-bold">{editing ? "Edit Vehicle" : "Add Vehicle"}</h2>
-                <button onClick={resetForm} className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  <X className="h-5 w-5 text-muted-foreground" />
+                <button onClick={resetForm} className="p-1.5 rounded-lg hover:bg-slate-700/50 transition-colors">
+                  <X className="h-5 w-5 text-slate-400" />
                 </button>
               </div>
               <form onSubmit={handleSubmit} className="space-y-3.5">
@@ -439,12 +439,12 @@ function VehiclesTab({ vehicles, setVehicles }: { vehicles: any[]; setVehicles: 
                   </div>
                 </div>
                 <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" checked={form.is_default} onChange={e => setForm(p => ({ ...p, is_default: e.target.checked }))} className="h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500" disabled={saving} />
-                  <span className="text-sm text-muted-foreground">Set as default vehicle</span>
+                  <input type="checkbox" checked={form.is_default} onChange={e => setForm(p => ({ ...p, is_default: e.target.checked }))} className="h-4 w-4 rounded border-slate-border text-amber-primary focus:ring-amber-primary" disabled={saving} />
+                  <span className="text-sm text-slate-400">Set as default vehicle</span>
                 </label>
                 <div className="flex gap-2.5 pt-2">
-                  <Button type="button" variant="outline" onClick={resetForm} className="flex-1" disabled={saving}>Cancel</Button>
-                  <Button type="submit" disabled={saving} className="flex-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90">
+                  <Button type="button" variant="outline" onClick={resetForm} className="flex-1 border-slate-border hover:bg-slate-700/50" disabled={saving}>Cancel</Button>
+                  <Button type="submit" disabled={saving} className="flex-1 bg-amber-burst text-white hover:opacity-90">
                     {saving ? <><Loader2 className="h-4 w-4 mr-1.5 animate-spin" />Saving...</> : (editing ? "Update" : "Save")}
                   </Button>
                 </div>
@@ -457,12 +457,12 @@ function VehiclesTab({ vehicles, setVehicles }: { vehicles: any[]; setVehicles: 
       {/* Vehicle grid */}
       {vehicles.length === 0 ? (
         <motion.div variants={cardEntrance} initial="hidden" animate="visible"
-          className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800"
+          className="text-center py-16 bg-obsidian-surface border border-dashed border-slate-border rounded-2xl"
         >
-          <Car className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-          <h3 className="font-semibold mb-1">No vehicles yet</h3>
-          <p className="text-sm text-muted-foreground mb-5">Add your first vehicle to book services faster</p>
-          <Button onClick={() => { resetForm(); setShowForm(true) }} className="gap-1.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90">
+          <Car className="h-12 w-12 mx-auto text-slate-500 mb-3" />
+          <h3 className="font-semibold mb-1 text-slate-100">No vehicles yet</h3>
+          <p className="text-sm text-slate-400 mb-5">Add your first vehicle to book services faster</p>
+          <Button onClick={() => { resetForm(); setShowForm(true) }} className="gap-1.5 bg-amber-burst text-white hover:opacity-90">
             <Plus className="h-4 w-4" /> Add Vehicle
           </Button>
         </motion.div>
@@ -472,14 +472,14 @@ function VehiclesTab({ vehicles, setVehicles }: { vehicles: any[]; setVehicles: 
         >
           {vehicles.map((v: any) => (
             <motion.div key={v.id} variants={cardEntrance}>
-              <Card className="group border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200">
+              <Card className="group bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev transition-all duration-200 hover:shadow-[0px_16px_40px_rgba(0,0,0,0.5)]">
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="font-bold text-[15px]">{v.make} {v.model}</h3>
-                      <p className="text-xs text-muted-foreground">{v.year} · {v.color}</p>
+                      <h3 className="font-bold text-[15px] text-slate-100">{v.make} {v.model}</h3>
+                      <p className="text-xs text-slate-400">{v.year} · {v.color}</p>
                     </div>
-                    {v.is_default && <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 text-[10px]">Default</Badge>}
+                    {v.is_default && <Badge className="bg-emerald-500/15 text-emerald-300 text-[10px]">Default</Badge>}
                   </div>
                   <p className="text-xs text-muted-foreground font-mono mb-3">{v.reg_number}</p>
                   <div className="flex items-center gap-1.5">
@@ -517,14 +517,14 @@ function JobsTab({ jobs }: { jobs: any[] }) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-bold">Job History</h2>
-        <p className="text-sm text-muted-foreground">All your past service requests</p>
+        <h2 className="text-lg font-bold text-slate-100">Job History</h2>
+        <p className="text-sm text-slate-400">All your past service requests</p>
       </div>
 
       <div className="flex gap-1.5">
         {(["all", "completed", "cancelled"] as const).map(f => (
           <Button key={f} variant={filter === f ? "default" : "outline"} size="sm"
-            onClick={() => setFilter(f)} className="rounded-lg text-xs capitalize"
+            onClick={() => setFilter(f)} className="rounded-lg text-xs capitalize bg-obsidian-surface border border-slate-border hover:bg-slate-border/50 data-[state=active]:bg-amber-burst data-[state=active]:text-white data-[state=active]:border-amber-primary"
           >
             {f}
           </Button>
@@ -532,14 +532,14 @@ function JobsTab({ jobs }: { jobs: any[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800">
-          <Wrench className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-          <h3 className="font-semibold mb-1">No bookings found</h3>
-          <p className="text-sm text-muted-foreground mb-5">
+        <div className="text-center py-16 bg-obsidian-surface border-2 border-dashed border-slate-border rounded-2xl">
+          <Wrench className="h-12 w-12 mx-auto text-slate-500 mb-3" />
+          <h3 className="font-semibold mb-1 text-slate-100">No bookings found</h3>
+          <p className="text-sm text-slate-400 mb-5">
             {filter === "all" ? "You haven't booked any services yet" : `No ${filter} bookings`}
           </p>
           <Link href="/customer/bookings/new">
-            <Button className="gap-1.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90">
+            <Button className="gap-1.5 bg-amber-burst text-white hover:opacity-90">
               <Plus className="h-4 w-4" /> Book Service
             </Button>
           </Link>
@@ -552,13 +552,13 @@ function JobsTab({ jobs }: { jobs: any[] }) {
               <motion.div key={job.id} variants={cardEntrance}>
                 <Link href={`/customer/bookings/${job.id}`} className="block">
                   <Card className={cn(
-                    "border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200 cursor-pointer",
+                    "bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev transition-all duration-200 cursor-pointer hover:shadow-[0px_16px_40px_rgba(0,0,0,0.5)]",
                   )}>
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
                         <div>
-                          <h3 className="font-bold text-[15px]">{job.service_category?.replace(/_/g, " ")}</h3>
-                          <p className="text-xs text-muted-foreground mt-0.5">{formatDate(job.created_at)}</p>
+                          <h3 className="font-bold text-[15px] text-slate-100">{job.service_category?.replace(/_/g, " ")}</h3>
+                          <p className="text-xs text-slate-400 mt-0.5">{formatDate(job.created_at)}</p>
                         </div>
                         <Badge className={cn("text-[10px] font-semibold", st.classes)}>
                           {st.label}
@@ -568,38 +568,38 @@ function JobsTab({ jobs }: { jobs: any[] }) {
                       <div className="grid gap-2 sm:grid-cols-3 text-sm mb-3">
                         {job.vehicle && (
                           <div className="flex items-center gap-1.5">
-                            <Car className="h-3.5 w-3.5 text-muted-foreground" />
-                            <span className="font-medium text-sm">{job.vehicle.make} {job.vehicle.model}</span>
+                            <Car className="h-3.5 w-3.5 text-slate-400" />
+                            <span className="font-medium text-sm text-slate-100">{job.vehicle.make} {job.vehicle.model}</span>
                           </div>
                         )}
                         <div className="flex items-center gap-1.5">
-                          <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
-                          <span className="text-xs text-muted-foreground truncate">{job.location_address}</span>
+                          <MapPin className="h-3.5 w-3.5 text-slate-400" />
+                          <span className="text-xs text-slate-400 truncate">{job.location_address}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                          <DollarSign className="h-3.5 w-3.5 text-muted-foreground" />
-                          <span className="font-bold text-orange-600 dark:text-orange-400 tabular-nums text-sm">
+                          <DollarSign className="h-3.5 w-3.5 text-slate-400" />
+                          <span className="font-bold text-amber-glow tabular-nums text-sm">
                             {job.agreed_price ? formatCurrency(job.agreed_price) : "Pending"}
                           </span>
                         </div>
                       </div>
 
                       {job.mechanic && (
-                        <div className="flex items-center gap-2.5 p-2.5 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-white text-xs font-bold">
+                        <div className="flex items-center gap-2.5 p-2.5 bg-obsidian-surface border border-slate-border rounded-lg">
+                          <div className="w-8 h-8 rounded-full bg-amber-burst flex items-center justify-center text-white text-xs font-bold">
                             {job.mechanic.full_name?.charAt(0) || "M"}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="font-medium text-sm">{job.mechanic.full_name}</p>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="font-medium text-sm text-slate-100">{job.mechanic.full_name}</p>
+                            <p className="text-xs text-slate-400">
                               {job.mechanic.rating_avg || "4.9"}★ · {job.mechanic.total_jobs || 0} jobs
                             </p>
                           </div>
                         </div>
                       )}
 
-                      <div className="flex items-center justify-end pt-2.5 mt-2.5 border-t border-gray-100 dark:border-gray-800">
-                        <span className="text-orange-600 dark:text-orange-400 text-xs flex items-center gap-0.5 font-medium">
+                      <div className="flex items-center justify-end pt-2.5 mt-2.5 border-t border-slate-border">
+                        <span className="text-amber-glow text-xs flex items-center gap-0.5 font-medium">
                           View Details <ChevronRight className="h-3.5 w-3.5" />
                         </span>
                       </div>
@@ -683,7 +683,7 @@ export default function CustomerDashboard() {
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-36 rounded-2xl" />
+            <Skeleton key={i} className="h-36 rounded-2xl bg-slate-700/40" />
           ))}
         </div>
       </div>
@@ -725,14 +725,14 @@ export default function CustomerDashboard() {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-3 bg-gray-100 dark:bg-gray-800/50 p-1 rounded-xl h-10">
-          <TabsTrigger value="overview" className="rounded-lg text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-gray-900">
+        <TabsList className="grid w-full grid-cols-3 bg-obsidian-bg p-1 rounded-xl h-10">
+          <TabsTrigger value="overview" className="rounded-lg text-sm text-slate-400 data-[state=active]:bg-obsidian-surface data-[state=active]:shadow-card-elev data-[state=active]:text-slate-100">
             Overview
           </TabsTrigger>
-          <TabsTrigger value="vehicles" className="rounded-lg text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-gray-900">
+          <TabsTrigger value="vehicles" className="rounded-lg text-sm text-slate-400 data-[state=active]:bg-obsidian-surface data-[state=active]:shadow-card-elev data-[state=active]:text-slate-100">
             Vehicles
           </TabsTrigger>
-          <TabsTrigger value="jobs" className="rounded-lg text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-gray-900">
+          <TabsTrigger value="jobs" className="rounded-lg text-sm text-slate-400 data-[state=active]:bg-obsidian-surface data-[state=active]:shadow-card-elev data-[state=active]:text-slate-100">
             History
           </TabsTrigger>
         </TabsList>
@@ -752,15 +752,15 @@ export default function CustomerDashboard() {
           {/* Recent Bookings */}
           <section>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-bold">Recent Bookings</h2>
-              <Link href="/customer/bookings" className="text-orange-600 dark:text-orange-400 hover:underline text-sm flex items-center gap-1 font-medium">
+              <h2 className="text-lg font-bold text-slate-100">Recent Bookings</h2>
+              <Link href="/customer/bookings" className="text-amber-glow hover:underline text-sm flex items-center gap-1 font-medium">
                 View all <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 
             {pastJobs.length === 0 ? (
-              <p className="text-center py-10 text-muted-foreground text-sm">
-                No bookings yet. <Link href="/customer/bookings/new" className="text-orange-600 dark:text-orange-400 hover:underline font-medium">Book your first service</Link>
+              <p className="text-center py-10 text-slate-400 text-sm">
+                No bookings yet. <Link href="/customer/bookings/new" className="text-amber-glow hover:underline font-medium">Book your first service</Link>
               </p>
             ) : (
               <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-2.5">
@@ -769,27 +769,27 @@ export default function CustomerDashboard() {
                   return (
                     <motion.div key={job.id} variants={cardEntrance}>
                       <Link href={`/customer/bookings/${job.id}`} className="block">
-                        <Card className="border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200 cursor-pointer">
+                        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev transition-all duration-200 hover:shadow-[0px_16px_40px_rgba(0,0,0,0.5)] cursor-pointer">
                           <CardContent className="p-4">
                             <div className="flex items-start justify-between mb-2">
                               <div>
-                                <h3 className="font-bold text-[15px]">{job.service_category?.replace(/_/g, " ")}</h3>
-                                <p className="text-xs text-muted-foreground">{formatDate(job.created_at)}</p>
+                                <h3 className="font-bold text-[15px] text-slate-100">{job.service_category?.replace(/_/g, " ")}</h3>
+                                <p className="text-xs text-slate-400">{formatDate(job.created_at)}</p>
                               </div>
                               <Badge className={cn("text-[10px] font-semibold", st.classes)}>{st.label}</Badge>
                             </div>
                             <div className="flex items-center justify-between text-sm">
                               <div className="flex items-center gap-3">
                                 {job.vehicle && (
-                                  <span className="flex items-center gap-1 text-muted-foreground text-xs">
+                                  <span className="flex items-center gap-1 text-slate-400 text-xs">
                                     <Car className="h-3 w-3" /> {job.vehicle.make} {job.vehicle.model}
                                   </span>
                                 )}
-                                <span className="font-bold text-orange-600 dark:text-orange-400 tabular-nums text-sm">
+                                <span className="font-bold text-amber-glow tabular-nums text-sm">
                                   {job.agreed_price ? formatCurrency(job.agreed_price) : "Pending"}
                                 </span>
                               </div>
-                              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                              <ChevronRight className="h-4 w-4 text-slate-400" />
                             </div>
                           </CardContent>
                         </Card>

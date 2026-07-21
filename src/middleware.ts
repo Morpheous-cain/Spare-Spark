@@ -42,6 +42,7 @@ export async function middleware(request: NextRequest) {
   ) {
     const url = request.nextUrl.clone()
     url.pathname = "/auth/sign-in"
+    url.searchParams.set("redirectTo", request.nextUrl.pathname)
     return NextResponse.redirect(url)
   }
 
@@ -51,16 +52,37 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/auth") &&
     !request.nextUrl.pathname.startsWith("/auth/callback")
   ) {
-    // Check user role from profiles table
     const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single()
 
-    // Also check mechanic_profiles for mechanics
-    const { data: mechanicProfile } = await supabase.from("mechanic_profiles").select("id, kyc_status").eq("id", user.id).single()
+    const { data: mechanicProfile } = await supabase
+      .from("mechanic_profiles")
+      .select("id, kyc_status")
+      .eq("id", user.id)
+      .single()
 
     const isMechanic = mechanicProfile && mechanicProfile.kyc_status === "APPROVED"
     const url = request.nextUrl.clone()
     url.pathname = isMechanic ? "/mechanic/dashboard" : "/customer/dashboard"
     return NextResponse.redirect(url)
+  }
+
+  // Mechanic routes — guard: require approved KYC
+  if (
+    user &&
+    request.nextUrl.pathname.startsWith("/mechanic") &&
+    !request.nextUrl.pathname.startsWith("/mechanic/profile")
+  ) {
+    const { data: mechanicProfile } = await supabase
+      .from("mechanic_profiles")
+      .select("id, kyc_status")
+      .eq("id", user.id)
+      .single()
+
+    if (!mechanicProfile || mechanicProfile.kyc_status !== "APPROVED") {
+      const url = request.nextUrl.clone()
+      url.pathname = "/mechanic/profile"
+      return NextResponse.redirect(url)
+    }
   }
 
   return supabaseResponse

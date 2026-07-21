@@ -60,24 +60,24 @@ const supabase = createClient()
 // ── Status config ────────────────────────────────────────────────────
 
 const STATUS_CONFIG: Record<string, { label: string; icon: typeof CheckCircle; classes: string }> = {
-  PENDING:     { label: "Pending",      icon: Search,      classes: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300" },
-  MATCHED:     { label: "Matched",      icon: CheckCircle, classes: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300" },
-  ACCEPTED:    { label: "Accepted",     icon: CheckCircle, classes: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300" },
-  EN_ROUTE:    { label: "En Route",     icon: Navigation,  classes: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300" },
-  ARRIVED:     { label: "Arrived",      icon: MapPin,      classes: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300" },
-  IN_PROGRESS: { label: "In Progress",  icon: Wrench,      classes: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300" },
-  COMPLETED:   { label: "Completed",    icon: CheckCircle, classes: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300" },
-  CANCELLED:   { label: "Cancelled",    icon: XCircle,     classes: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300" },
-  DISPUTED:    { label: "Disputed",     icon: XCircle,     classes: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300" },
+  PENDING:     { label: "Pending",      icon: Search,      classes: "bg-amber-subtle text-amber-glow" },
+  MATCHED:     { label: "Matched",      icon: CheckCircle, classes: "bg-blue-500/15 text-blue-300" },
+  ACCEPTED:    { label: "Accepted",     icon: CheckCircle, classes: "bg-blue-500/15 text-blue-300" },
+  EN_ROUTE:    { label: "En Route",     icon: Navigation,  classes: "bg-amber-subtle text-amber-primary" },
+  ARRIVED:     { label: "Arrived",      icon: MapPin,      classes: "bg-violet-500/15 text-violet-300" },
+  IN_PROGRESS: { label: "In Progress",  icon: Wrench,      classes: "bg-emerald-500/15 text-emerald-300" },
+  COMPLETED:   { label: "Completed",    icon: CheckCircle, classes: "bg-emerald-500/15 text-emerald-300" },
+  CANCELLED:   { label: "Cancelled",    icon: XCircle,     classes: "bg-red-500/15 text-red-300" },
+  DISPUTED:    { label: "Disputed",     icon: XCircle,     classes: "bg-red-500/15 text-red-300" },
 }
 
 // ── Stat Card ────────────────────────────────────────────────────────
 
 const STAT_COLORS = {
-  teal:   "bg-gradient-to-br from-teal-500/10 to-emerald-500/10 text-teal-600 dark:text-teal-400",
-  green:  "bg-gradient-to-br from-emerald-500/10 to-green-500/10 text-emerald-600 dark:text-emerald-400",
-  amber:  "bg-gradient-to-br from-amber-500/10 to-yellow-500/10 text-amber-600 dark:text-amber-400",
-  purple: "bg-gradient-to-br from-purple-500/10 to-violet-500/10 text-purple-600 dark:text-purple-400",
+  teal:   "bg-amber-subtle text-amber-glow",
+  green:  "bg-emerald-500/15 text-emerald-400",
+  amber:  "bg-amber-subtle text-amber-glow",
+  purple: "bg-violet-500/15 text-violet-400",
 } as const
 
 function StatCard({
@@ -88,7 +88,7 @@ function StatCard({
 }) {
   if (loading) {
     return (
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+      <Card className="border border-slate-border bg-obsidian-surface rounded-2xl shadow-card-elev">
         <CardContent className="flex items-center justify-between p-5">
           <div className="space-y-2"><Skeleton className="h-3.5 w-20" /><Skeleton className="h-7 w-16" /></div>
           <Skeleton className="h-11 w-11 rounded-xl" />
@@ -98,13 +98,13 @@ function StatCard({
   }
 
   return (
-    <Card className="group border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200">
+    <Card className="group border border-slate-border bg-obsidian-surface rounded-2xl shadow-card-elev transition-all duration-200 hover:shadow-card-elev">
       <CardContent className="flex items-center justify-between p-5">
         <div>
-          <p className="text-[13px] font-medium text-muted-foreground mb-1">{label}</p>
-          <p className="text-2xl font-bold tracking-tight tabular-nums">{value}</p>
+          <p className="text-[13px] font-medium text-slate-400 mb-1">{label}</p>
+          <p className="text-2xl font-bold tracking-tight tabular-nums text-slate-100">{value}</p>
           {trend && (
-            <p className={cn("text-xs mt-1.5 flex items-center gap-1 font-medium", trendUp ? "text-emerald-600 dark:text-emerald-400" : "text-red-500")}>
+            <p className={cn("text-xs mt-1.5 flex items-center gap-1 font-medium", trendUp ? "text-emerald-400" : "text-red-400")}>
               <TrendingUp className={cn("h-3 w-3", !trendUp && "rotate-180")} /> {trend}
             </p>
           )}
@@ -122,14 +122,14 @@ function StatCard({
 function EarningsChart({ data }: { data: { day: string; amount: number }[] }) {
   const max = Math.max(...data.map(d => d.amount), 1)
   return (
-    <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+    <Card className="border border-slate-border bg-obsidian-surface rounded-2xl shadow-card-elev">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold">Weekly Earnings</h3>
-            <p className="text-xs text-muted-foreground">Last 7 days</p>
+            <h3 className="text-base font-bold text-slate-100">Weekly Earnings</h3>
+            <p className="text-xs text-slate-400">Last 7 days</p>
           </div>
-          <Badge variant="secondary" className="gap-1 text-xs">
+          <Badge variant="secondary" className="gap-1 text-xs bg-slate-surface border-slate-border text-slate-400">
             <BarChart3 className="h-3 w-3" />
             KES {data.reduce((s, d) => s + d.amount, 0).toLocaleString()}
           </Badge>
@@ -149,12 +149,12 @@ function EarningsChart({ data }: { data: { day: string; amount: number }[] }) {
                   >
                     <div
                       className={cn(
-                        "w-full rounded-t bg-gradient-to-t from-teal-500 to-teal-400 transition-all",
-                        i === data.length - 1 && "ring-2 ring-teal-300 ring-offset-2"
+                        "w-full rounded-t bg-gradient-to-t from-amber-primary to-amber-glow transition-all",
+                        i === data.length - 1 && "ring-2 ring-amber-glow ring-offset-2 ring-offset-obsidian-bg"
                       )}
                       style={{ height: "100%" }}
                     />
-                    <span className="text-[10px] text-muted-foreground font-medium">{day.day}</span>
+                    <span className="text-[10px] text-slate-400 font-medium">{day.day}</span>
                   </motion.div>
                 </TooltipTrigger>
                 <TooltipContent side="top">{day.day}: {formatCurrency(day.amount)}</TooltipContent>
@@ -183,17 +183,17 @@ function ActiveMechanicJob({ job, onAction }: { job: any; onAction: (id: string)
 
   return (
     <motion.div initial="hidden" animate="visible" variants={cardEntrance}>
-      <Card className="relative border-0 shadow-lg overflow-hidden bg-gradient-to-br from-white to-teal-50/50 dark:from-gray-900 dark:to-teal-950/20">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-400" />
+      <Card className="relative border-0 shadow-lg overflow-hidden bg-gradient-to-br from-obsidian-surface to-amber-subtle/10">
+        <div className="absolute top-0 left-0 right-0 h-1 bg-amber-burst" />
         <CardHeader className="pb-2 pt-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center shadow-md shadow-teal-500/20">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-primary to-amber-glow flex items-center justify-center shadow-md shadow-amber-primary/20">
                 <StatusIcon className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h3 className="text-base font-bold">{job.service_category?.replace(/_/g, " ")}</h3>
-                <p className="text-xs text-muted-foreground">{formatDate(job.created_at)}</p>
+                <h3 className="text-base font-bold text-slate-100">{job.service_category?.replace(/_/g, " ")}</h3>
+                <p className="text-xs text-slate-400">{formatDate(job.created_at)}</p>
               </div>
             </div>
             <Badge className={cn("text-xs font-semibold", st.classes)}>{st.label}</Badge>
@@ -201,41 +201,41 @@ function ActiveMechanicJob({ job, onAction }: { job: any; onAction: (id: string)
         </CardHeader>
         <CardContent className="space-y-3 pb-5">
           <div className="grid gap-2 sm:grid-cols-4">
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Distance</p>
-              <p className="font-bold text-teal-600 dark:text-teal-400 text-lg tabular-nums">{job.distance?.toFixed(1)} km</p>
+            <div className="p-3 bg-obsidian-surface rounded-xl border border-slate-border">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Distance</p>
+              <p className="font-bold text-amber-glow text-lg tabular-nums">{job.distance?.toFixed(1)} km</p>
             </div>
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Payout</p>
-              <p className="font-bold text-teal-600 dark:text-teal-400 text-lg tabular-nums">{formatCurrency(job.estimatedPayout || 0)}</p>
+            <div className="p-3 bg-obsidian-surface rounded-xl border border-slate-border">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Payout</p>
+              <p className="font-bold text-amber-glow text-lg tabular-nums">{formatCurrency(job.estimatedPayout || 0)}</p>
             </div>
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Customer</p>
+            <div className="p-3 bg-obsidian-surface rounded-xl border border-slate-border">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Customer</p>
               <p className="font-medium text-sm flex items-center gap-1 mt-0.5">
                 <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" /> {job.customer?.rating || 4.5}
               </p>
             </div>
-            <div className="p-3 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800">
-              <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">Location</p>
-              <p className="font-medium text-sm truncate mt-0.5">{job.location_address}</p>
+            <div className="p-3 bg-obsidian-surface rounded-xl border border-slate-border">
+              <p className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Location</p>
+              <p className="font-medium text-sm truncate mt-0.5 text-slate-100">{job.location_address}</p>
             </div>
           </div>
 
           {job.vehicle && (
-            <div className="p-2.5 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center gap-2.5 text-sm">
-              <Car className="h-4 w-4 text-muted-foreground" />
-              <span className="font-medium">{job.vehicle.make} {job.vehicle.model}</span>
-              <span className="text-muted-foreground">({job.vehicle.reg_number})</span>
+            <div className="p-2.5 bg-slate-surface/50 rounded-lg flex items-center gap-2.5 text-sm">
+              <Car className="h-4 w-4 text-slate-400" />
+              <span className="font-medium text-slate-100">{job.vehicle.make} {job.vehicle.model}</span>
+              <span className="text-slate-400">({job.vehicle.reg_number})</span>
             </div>
           )}
 
           <div className="flex flex-wrap gap-2 pt-1">
             {action && (
-              <Button size="sm" className="gap-1.5 bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:opacity-90" onClick={() => onAction(job.id)}>
+              <Button size="sm" className="gap-1.5 bg-amber-burst text-white hover:opacity-90 shadow-amber-glow" onClick={() => onAction(job.id)}>
                 <action.icon className="h-3.5 w-3.5" /> {action.text}
               </Button>
             )}
-            <Button variant="outline" size="sm" className="gap-1.5">
+            <Button variant="outline" size="sm" className="gap-1.5 border-slate-border bg-obsidian-surface hover:bg-slate-surface text-slate-100">
               <MessageSquare className="h-3.5 w-3.5" /> Contact
             </Button>
           </div>
@@ -250,56 +250,56 @@ function ActiveMechanicJob({ job, onAction }: { job: any; onAction: (id: string)
 function JobRadarCard({ job, onAccept, onDecline }: { job: any; onAccept: (id: string) => void; onDecline: (id: string) => void }) {
   return (
     <motion.div variants={cardEntrance}>
-      <Card className="border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200">
+      <Card className="border-0 shadow-sm hover:shadow-md bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev transition-all duration-200">
         <CardContent className="p-4">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-primary to-amber-glow flex items-center justify-center">
                 <Wrench className="h-4 w-4 text-white" />
               </div>
               <div>
-                <h3 className="font-bold text-[15px]">{job.service_category?.replace(/_/g, " ")}</h3>
-                <p className="text-xs text-muted-foreground">{formatDate(job.created_at)}</p>
+                <h3 className="font-bold text-[15px] text-slate-100">{job.service_category?.replace(/_/g, " ")}</h3>
+                <p className="text-xs text-slate-400">{formatDate(job.created_at)}</p>
               </div>
             </div>
-            <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 text-[10px] font-semibold">Pending</Badge>
+            <Badge className="bg-amber-subtle text-amber-glow text-[10px] font-semibold">Pending</Badge>
           </div>
 
           <div className="grid gap-2 sm:grid-cols-4 text-sm mb-3">
             <div className="flex items-center gap-1.5">
-              <MapPin className={cn("h-3.5 w-3.5", job.distance < 5 ? "text-emerald-500" : job.distance < 15 ? "text-amber-500" : "text-red-500")} />
-              <span className="font-medium tabular-nums">{job.distance?.toFixed(1)} km</span>
+              <MapPin className={cn("h-3.5 w-3.5", job.distance < 5 ? "text-emerald-400" : job.distance < 15 ? "text-amber-glow" : "text-red-400")} />
+              <span className="font-medium tabular-nums text-slate-100">{job.distance?.toFixed(1)} km</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <DollarSign className="h-3.5 w-3.5 text-teal-500" />
-              <span className="font-bold text-teal-600 dark:text-teal-400 tabular-nums">{formatCurrency(job.estimatedPayout || 0)}</span>
+              <DollarSign className="h-3.5 w-3.5 text-amber-glow" />
+              <span className="font-bold text-amber-glow tabular-nums">{formatCurrency(job.estimatedPayout || 0)}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Star className="h-3.5 w-3.5 text-amber-400" />
-              <span className="font-medium">{job.customer?.rating || 4.5}★</span>
+              <span className="font-medium text-slate-100">{job.customer?.rating || 4.5}★</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground truncate">{job.location_address}</span>
+              <Clock className="h-3.5 w-3.5 text-slate-400" />
+              <span className="text-xs text-slate-400 truncate">{job.location_address}</span>
             </div>
           </div>
 
           {job.vehicle && (
-            <div className="mb-3 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center gap-2 text-sm">
-              <Car className="h-3.5 w-3.5 text-muted-foreground" />
-              <span className="font-medium">{job.vehicle.make} {job.vehicle.model}</span>
-              <span className="text-muted-foreground text-xs">({job.vehicle.reg_number})</span>
+            <div className="mb-3 p-2 bg-slate-surface/50 rounded-lg flex items-center gap-2 text-sm">
+              <Car className="h-3.5 w-3.5 text-slate-400" />
+              <span className="font-medium text-slate-100">{job.vehicle.make} {job.vehicle.model}</span>
+              <span className="text-slate-400 text-xs">({job.vehicle.reg_number})</span>
             </div>
           )}
 
           <div className="flex gap-2">
-            <Button size="sm" className="flex-1 gap-1.5 bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:opacity-90" onClick={() => onAccept(job.id)}>
+            <Button size="sm" className="flex-1 gap-1.5 bg-amber-burst text-white hover:opacity-90 shadow-amber-glow" onClick={() => onAccept(job.id)}>
               <CheckCircle className="h-3.5 w-3.5" /> Accept
             </Button>
-            <Button variant="outline" size="sm" className="flex-1 gap-1.5" onClick={() => onDecline(job.id)}>
+            <Button variant="outline" size="sm" className="flex-1 gap-1.5 border-slate-border bg-obsidian-surface hover:bg-slate-surface text-slate-100" onClick={() => onDecline(job.id)}>
               <XCircle className="h-3.5 w-3.5" /> Decline
             </Button>
-            <Button variant="ghost" size="sm" className="gap-1.5">
+            <Button variant="ghost" size="sm" className="gap-1.5 text-slate-400 hover:text-slate-100 hover:bg-slate-surface/50">
               <Eye className="h-3.5 w-3.5" />
             </Button>
           </div>
@@ -338,11 +338,11 @@ function MechanicProfileTab({ mechanic }: { mechanic: any }) {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold">Profile & Settings</h2>
-          <p className="text-sm text-muted-foreground">Manage your professional profile</p>
+          <h2 className="text-lg font-bold text-slate-100">Profile & Settings</h2>
+          <p className="text-sm text-slate-400">Manage your professional profile</p>
         </div>
         <Button size="sm" onClick={editing ? handleSave : () => setEditing(true)}
-          className="gap-1.5 bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:opacity-90"
+          className="gap-1.5 bg-amber-burst text-white hover:opacity-90 shadow-amber-glow"
           disabled={saving}
         >
           {editing ? <><CheckCircle className="h-3.5 w-3.5" /> Save</> : <><Edit className="h-3.5 w-3.5" /> Edit</>}
@@ -350,26 +350,26 @@ function MechanicProfileTab({ mechanic }: { mechanic: any }) {
       </div>
 
       {/* Profile header */}
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+      <Card className="border-0 shadow-sm bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
         <CardContent className="p-5">
           <div className="flex items-center gap-5">
-            <Avatar className="h-16 w-16 border-2 border-teal-200 dark:border-teal-800">
+            <Avatar className="h-16 w-16 border-2 border-amber-primary/30">
               <AvatarImage src={mechanic?.avatar_url} />
-              <AvatarFallback className="bg-gradient-to-br from-teal-500 to-emerald-500 text-white text-xl font-bold">
+              <AvatarFallback className="bg-amber-burst text-white text-xl font-bold">
                 {mechanic?.full_name?.charAt(0) || "M"}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <h3 className="text-xl font-bold">{mechanic?.full_name || "Mechanic"}</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-xl font-bold text-slate-100">{mechanic?.full_name || "Mechanic"}</h3>
+              <p className="text-sm text-slate-400">
                 {mechanic?.years_experience || 0} yrs exp · {mechanic?.total_jobs || 0} jobs
               </p>
               <div className="flex items-center gap-3 mt-2">
                 <span className="flex items-center gap-1 text-sm">
                   <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  <strong>{mechanic?.rating_avg || 4.9}</strong>
+                  <strong className="text-slate-100">{mechanic?.rating_avg || 4.9}</strong>
                 </span>
-                <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1 text-sm text-slate-400">
                   <ShieldCheck className="h-4 w-4" /> Verified
                 </span>
               </div>
@@ -379,39 +379,39 @@ function MechanicProfileTab({ mechanic }: { mechanic: any }) {
       </Card>
 
       {/* Personal info */}
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
-        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold">Personal Information</CardTitle></CardHeader>
+      <Card className="border-0 shadow-sm bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
+        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-slate-100">Personal Information</CardTitle></CardHeader>
         <CardContent className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label>Full Name</Label>
-              <Input value={form.full_name} onChange={e => setForm(p => ({ ...p, full_name: e.target.value }))} disabled={!editing} />
+              <Label className="text-slate-300">Full Name</Label>
+              <Input value={form.full_name} onChange={e => setForm(p => ({ ...p, full_name: e.target.value }))} disabled={!editing} className="bg-slate-surface border-slate-border text-slate-100 placeholder-slate-500" />
             </div>
             <div className="space-y-1.5">
-              <Label>Phone</Label>
-              <Input type="tel" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value }))} disabled={!editing} />
+              <Label className="text-slate-300">Phone</Label>
+              <Input type="tel" value={form.phone} onChange={e => setForm(p => ({ ...p, phone: e.target.value }))} disabled={!editing} className="bg-slate-surface border-slate-border text-slate-100 placeholder-slate-500" />
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label>M-Pesa Number</Label>
-            <Input type="tel" value={form.mpesa_number} onChange={e => setForm(p => ({ ...p, mpesa_number: e.target.value }))} placeholder="+254 7XX XXX XXX" disabled={!editing} />
+            <Label className="text-slate-300">M-Pesa Number</Label>
+            <Input type="tel" value={form.mpesa_number} onChange={e => setForm(p => ({ ...p, mpesa_number: e.target.value }))} placeholder="+254 7XX XXX XXX" disabled={!editing} className="bg-slate-surface border-slate-border text-slate-100 placeholder-slate-500" />
           </div>
         </CardContent>
       </Card>
 
       {/* Professional */}
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
-        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold">Professional Details</CardTitle></CardHeader>
+      <Card className="border-0 shadow-sm bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
+        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-slate-100">Professional Details</CardTitle></CardHeader>
         <CardContent className="space-y-3">
           <div className="space-y-1.5">
-            <Label>Specialisations</Label>
+            <Label className="text-slate-300">Specialisations</Label>
             <div className="flex flex-wrap gap-1.5">
               {specs.map(s => (
                 <label key={s} className={cn(
                   "inline-flex items-center px-2.5 py-1 rounded-full text-xs cursor-pointer transition-all border",
                   form.specialisations.includes(s)
-                    ? "bg-teal-500 text-white border-teal-500"
-                    : "bg-gray-100 dark:bg-gray-800 text-muted-foreground border-gray-200 dark:border-gray-700 hover:border-teal-300"
+                    ? "bg-amber-primary text-white border-amber-primary"
+                    : "bg-slate-surface text-slate-400 border-slate-border hover:border-amber-primary/50 hover:text-slate-100"
                 )}>
                   <input type="checkbox" checked={form.specialisations.includes(s)} className="sr-only" disabled={!editing}
                     onChange={e => setForm(p => ({
@@ -425,22 +425,22 @@ function MechanicProfileTab({ mechanic }: { mechanic: any }) {
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label>Service Radius</Label>
+            <Label className="text-slate-300">Service Radius</Label>
             <div className="flex items-center gap-3">
               <Slider value={[form.service_radius_km]} onValueChange={([v]) => setForm(p => ({ ...p, service_radius_km: v }))} max={50} min={1} disabled={!editing} className="flex-1" />
-              <span className="text-sm font-bold text-teal-600 dark:text-teal-400 w-14 text-right tabular-nums">{form.service_radius_km} km</span>
+              <span className="text-sm font-bold text-amber-glow w-14 text-right tabular-nums">{form.service_radius_km} km</span>
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label>Bio</Label>
-            <Textarea value={form.bio} onChange={e => setForm(p => ({ ...p, bio: e.target.value }))} placeholder="Tell customers about your expertise..." rows={3} disabled={!editing} />
+            <Label className="text-slate-300">Bio</Label>
+            <Textarea value={form.bio} onChange={e => setForm(p => ({ ...p, bio: e.target.value }))} placeholder="Tell customers about your expertise..." rows={3} disabled={!editing} className="bg-slate-surface border-slate-border text-slate-100 placeholder-slate-500" />
           </div>
         </CardContent>
       </Card>
 
       {/* Availability */}
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
-        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold">Availability</CardTitle></CardHeader>
+      <Card className="border-0 shadow-sm bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
+        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-slate-100">Availability</CardTitle></CardHeader>
         <CardContent className="space-y-4">
           {[
             { title: "Online Status", desc: "Toggle to receive job requests", checked: mechanic?.is_online || false },
@@ -448,13 +448,13 @@ function MechanicProfileTab({ mechanic }: { mechanic: any }) {
             { title: "Auto-Accept", desc: "Auto-accept nearby jobs", checked: false },
           ].map((item, i) => (
             <div key={item.title}>
-              {i > 0 && <Separator className="mb-4" />}
+              {i > 0 && <Separator className="mb-4 border-slate-border" />}
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="font-medium text-sm">{item.title}</h4>
-                  <p className="text-xs text-muted-foreground">{item.desc}</p>
+                  <h4 className="font-medium text-sm text-slate-100">{item.title}</h4>
+                  <p className="text-xs text-slate-400">{item.desc}</p>
                 </div>
-                <Switch checked={item.checked} disabled={!editing} />
+                <Switch checked={item.checked} disabled={!editing} className="data-[state=checked]:bg-amber-primary data-[state=checked]:border-amber-primary" />
               </div>
             </div>
           ))}
@@ -482,12 +482,14 @@ function EarningsTab({ jobs }: { jobs: any[] }) {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-bold">Earnings</h2>
-          <p className="text-sm text-muted-foreground">Track income & payouts</p>
+          <h2 className="text-lg font-bold text-slate-100">Earnings</h2>
+          <p className="text-sm text-slate-400">Track income & payouts</p>
         </div>
         <div className="flex gap-1.5">
           {(["week", "month", "year"] as const).map(p => (
-            <Button key={p} variant={period === p ? "default" : "outline"} size="sm" onClick={() => setPeriod(p)} className="rounded-lg text-xs capitalize">{p}</Button>
+            <Button key={p} variant={period === p ? "default" : "outline"} size="sm" onClick={() => setPeriod(p)} className={cn("rounded-lg text-xs capitalize", period === p && "bg-amber-burst text-white shadow-amber-glow")}>
+              {p}
+            </Button>
           ))}
         </div>
       </div>
@@ -500,27 +502,27 @@ function EarningsTab({ jobs }: { jobs: any[] }) {
 
       <EarningsChart data={weeklyData} />
 
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
-        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold flex items-center gap-1.5"><History className="h-4 w-4 text-teal-500" /> Recent Payouts</CardTitle></CardHeader>
+      <Card className="border border-slate-border bg-obsidian-surface rounded-2xl shadow-card-elev">
+        <CardHeader className="pb-2"><CardTitle className="text-sm font-semibold text-slate-100 flex items-center gap-1.5"><History className="h-4 w-4 text-amber-glow" /> Recent Payouts</CardTitle></CardHeader>
         <CardContent>
           {completed.length === 0 ? (
-            <p className="text-center py-8 text-sm text-muted-foreground">No completed jobs yet</p>
+            <p className="text-center py-8 text-sm text-slate-400">No completed jobs yet</p>
           ) : (
             <div className="space-y-2">
               {completed.slice(0, 5).map((job: any) => (
-                <div key={job.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                <div key={job.id} className="flex items-center justify-between p-3 bg-slate-800/40 rounded-lg border border-slate-border">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                      <DollarSign className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                    <div className="w-8 h-8 rounded-lg bg-amber-subtle flex items-center justify-center">
+                      <DollarSign className="h-4 w-4 text-amber-glow" />
                     </div>
                     <div>
-                      <p className="font-medium text-sm">{job.service_category?.replace(/_/g, " ")}</p>
-                      <p className="text-xs text-muted-foreground">{formatDate(job.completed_at)}</p>
+                      <p className="font-medium text-sm text-slate-100">{job.service_category?.replace(/_/g, " ")}</p>
+                      <p className="text-xs text-slate-400">{formatDate(job.completed_at)}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-teal-600 dark:text-teal-400 tabular-nums">{formatCurrency(job.agreed_price || 0)}</p>
-                    <p className="text-[10px] text-emerald-600">M-Pesa</p>
+                    <p className="font-bold text-amber-glow tabular-nums">{formatCurrency(job.agreed_price || 0)}</p>
+                    <p className="text-[10px] text-emerald-400">M-Pesa</p>
                   </div>
                 </div>
               ))}
@@ -545,20 +547,22 @@ function JobHistoryTab({ jobs }: { jobs: any[] }) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-lg font-bold">Job History</h2>
-        <p className="text-sm text-muted-foreground">Past jobs</p>
+        <h2 className="text-lg font-bold text-slate-100">Job History</h2>
+        <p className="text-sm text-slate-400">Past jobs</p>
       </div>
       <div className="flex gap-1.5">
         {(["all", "completed", "cancelled"] as const).map(f => (
-          <Button key={f} variant={filter === f ? "default" : "outline"} size="sm" onClick={() => setFilter(f)} className="rounded-lg text-xs capitalize">{f}</Button>
+          <Button key={f} variant={filter === f ? "default" : "outline"} size="sm" onClick={() => setFilter(f)} className={cn("rounded-lg text-xs capitalize", filter === f && "bg-amber-burst text-white shadow-amber-glow")}>
+            {f}
+          </Button>
         ))}
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800">
-          <Wrench className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-          <h3 className="font-semibold mb-1">No jobs found</h3>
-          <p className="text-sm text-muted-foreground">{filter === "all" ? "No jobs yet" : `No ${filter} jobs`}</p>
+        <div className="text-center py-16 bg-obsidian-surface border border-dashed border-slate-border rounded-2xl">
+          <Wrench className="h-12 w-12 mx-auto text-slate-600 mb-3" />
+          <h3 className="font-semibold mb-1 text-slate-100">No jobs found</h3>
+          <p className="text-sm text-slate-400">{filter === "all" ? "No jobs yet" : `No ${filter} jobs`}</p>
         </div>
       ) : (
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-2.5">
@@ -566,25 +570,25 @@ function JobHistoryTab({ jobs }: { jobs: any[] }) {
             const st = STATUS_CONFIG[job.status] || STATUS_CONFIG.PENDING
             return (
               <motion.div key={job.id} variants={cardEntrance}>
-                <Card className="border-0 shadow-sm hover:shadow-md bg-white dark:bg-gray-900 transition-all duration-200">
+                <Card className="border border-slate-border bg-obsidian-surface rounded-2xl shadow-card-elev transition-all duration-200 hover:shadow-card-elev">
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between mb-2">
                       <div>
-                        <h3 className="font-bold text-[15px]">{job.service_category?.replace(/_/g, " ")}</h3>
-                        <p className="text-xs text-muted-foreground">{formatDate(job.completed_at || job.created_at)}</p>
+                        <h3 className="font-bold text-[15px] text-slate-100">{job.service_category?.replace(/_/g, " ")}</h3>
+                        <p className="text-xs text-slate-400">{formatDate(job.completed_at || job.created_at)}</p>
                       </div>
                       <Badge className={cn("text-[10px] font-semibold", st.classes)}>{st.label}</Badge>
                     </div>
                     <div className="grid gap-2 sm:grid-cols-3 text-sm mb-2">
                       {job.vehicle && (
-                        <span className="flex items-center gap-1 text-xs"><Car className="h-3 w-3 text-muted-foreground" /> {job.vehicle.make} {job.vehicle.model}</span>
+                        <span className="flex items-center gap-1 text-xs text-slate-400"><Car className="h-3 w-3" /> {job.vehicle.make} {job.vehicle.model}</span>
                       )}
-                      <span className="flex items-center gap-1 text-xs text-muted-foreground truncate"><MapPin className="h-3 w-3" /> {job.location_address}</span>
-                      <span className="font-bold text-teal-600 dark:text-teal-400 tabular-nums">{job.agreed_price ? formatCurrency(job.agreed_price) : "—"}</span>
+                      <span className="flex items-center gap-1 text-xs text-slate-400 truncate"><MapPin className="h-3 w-3" /> {job.location_address}</span>
+                      <span className="font-bold text-amber-glow tabular-nums">{job.agreed_price ? formatCurrency(job.agreed_price) : "—"}</span>
                     </div>
-                    <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-800 text-xs">
-                      <span className="text-muted-foreground">Customer: <strong>{job.customer?.full_name || "—"}</strong></span>
-                      <span className="font-bold text-teal-600 dark:text-teal-400 tabular-nums">{formatCurrency(job.agreed_price || 0)}</span>
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-border text-xs">
+                      <span className="text-slate-400">Customer: <strong className="text-slate-100">{job.customer?.full_name || "—"}</strong></span>
+                      <span className="font-bold text-amber-glow tabular-nums">{formatCurrency(job.agreed_price || 0)}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -687,7 +691,7 @@ export default function MechanicDashboard() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => <StatCard key={i} label="" value="" icon={Activity} loading />)}
         </div>
-        <Skeleton className="h-48 rounded-2xl" />
+        <Skeleton className="h-48 rounded-2xl bg-slate-700/40" />
       </div>
     )
   }
@@ -720,9 +724,9 @@ export default function MechanicDashboard() {
       </motion.div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList className="grid w-full grid-cols-5 bg-gray-100 dark:bg-gray-800/50 p-1 rounded-xl h-10">
+        <TabsList className="grid w-full grid-cols-5 bg-slate-900/50 p-1 rounded-xl h-10 border border-slate-border">
           {["radar", "active", "earnings", "history", "profile"].map(tab => (
-            <TabsTrigger key={tab} value={tab} className="rounded-lg text-xs capitalize data-[state=active]:bg-white data-[state=active]:shadow-sm dark:data-[state=active]:bg-gray-900">
+            <TabsTrigger key={tab} value={tab} className="rounded-lg text-xs capitalize text-slate-400 data-[state=active]:bg-obsidian-surface data-[state=active]:shadow-card-elev data-[state=active]:text-slate-100 data-[state=active]:border data-[state=active]:border-slate-border hover:text-slate-100">
               {tab === "radar" ? "Job Radar" : tab === "active" ? "Active Job" : tab.charAt(0).toUpperCase() + tab.slice(1)}
             </TabsTrigger>
           ))}
@@ -732,13 +736,13 @@ export default function MechanicDashboard() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold">Job Radar</h2>
-                <p className="text-sm text-muted-foreground">Available jobs near you</p>
+                <h2 className="text-lg font-bold text-slate-100">Job Radar</h2>
+                <p className="text-sm text-slate-400">Available jobs near you</p>
               </div>
               <div className="flex items-center gap-2.5">
-                <Switch checked={mechanic?.is_online || false} />
-                <span className="text-xs text-muted-foreground">Online</span>
-                <Badge variant="secondary" className="gap-1 text-[10px]">
+                <Switch checked={mechanic?.is_online || false} className="data-[state=checked]:bg-amber-primary data-[state=checked]:border-amber-primary" />
+                <span className="text-xs text-slate-400">Online</span>
+                <Badge variant="secondary" className="gap-1 text-[10px] bg-slate-surface border-slate-border text-slate-400">
                   <RefreshCw className="h-2.5 w-2.5 animate-spin" /> Live
                 </Badge>
               </div>
@@ -748,7 +752,7 @@ export default function MechanicDashboard() {
               {(["all", "nearby", "high_value"] as const).map(f => (
                 <Button key={f} variant={filter === f ? "default" : "outline"} size="sm"
                   onClick={() => setFilter(f)}
-                  className={cn("rounded-lg text-xs", filter === f && "bg-gradient-to-r from-teal-500 to-emerald-500 text-white")}
+                  className={cn("rounded-lg text-xs", filter === f && "bg-amber-burst text-white shadow-amber-glow")}
                 >
                   {f === "high_value" ? "High Value" : f.charAt(0).toUpperCase() + f.slice(1)}
                 </Button>
@@ -756,10 +760,10 @@ export default function MechanicDashboard() {
             </div>
 
             {filteredJobs.length === 0 ? (
-              <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800">
-                <Radar className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-                <h3 className="font-semibold mb-1">No jobs available</h3>
-                <p className="text-sm text-muted-foreground">Jobs appear here when customers request help nearby</p>
+              <div className="text-center py-16 bg-obsidian-surface border border-dashed border-slate-border rounded-2xl">
+                <Radar className="h-12 w-12 mx-auto text-slate-600 mb-3" />
+                <h3 className="font-semibold mb-1 text-slate-100">No jobs available</h3>
+                <p className="text-sm text-slate-400">Jobs appear here when customers request help nearby</p>
               </div>
             ) : (
               <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-2.5">
@@ -775,11 +779,11 @@ export default function MechanicDashboard() {
           {activeJob ? (
             <ActiveMechanicJob job={activeJob} onAction={acceptJob} />
           ) : (
-            <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-200 dark:border-gray-800">
-              <Briefcase className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-              <h3 className="font-semibold mb-1">No active job</h3>
-              <p className="text-sm text-muted-foreground mb-4">Accept a job from the Radar</p>
-              <Button size="sm" onClick={() => setActiveTab("radar")} className="gap-1.5 bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:opacity-90">
+            <div className="text-center py-16 bg-obsidian-surface border border-dashed border-slate-border rounded-2xl">
+              <Briefcase className="h-12 w-12 mx-auto text-slate-600 mb-3" />
+              <h3 className="font-semibold mb-1 text-slate-100">No active job</h3>
+              <p className="text-sm text-slate-400 mb-4">Accept a job from the Radar</p>
+              <Button size="sm" onClick={() => setActiveTab("radar")} className="gap-1.5 bg-amber-burst text-white hover:opacity-90 shadow-amber-glow">
                 <Radar className="h-3.5 w-3.5" /> Job Radar
               </Button>
             </div>

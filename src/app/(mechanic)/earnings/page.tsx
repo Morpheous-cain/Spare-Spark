@@ -23,6 +23,15 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 const supabase = createClient()
 
+const statusColors: Record<string, string> = {
+  COMPLETED: "bg-emerald-500/15 text-emerald-300",
+  IN_PROGRESS: "bg-emerald-500/15 text-emerald-300",
+  ACCEPTED: "bg-blue-500/15 text-blue-300",
+  EN_ROUTE: "bg-amber-subtle text-amber-primary",
+  ARRIVED: "bg-violet-500/15 text-violet-300",
+  PENDING: "bg-amber-subtle text-amber-glow",
+}
+
 export default function EarningsPage() {
   const [jobs, setJobs] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -81,15 +90,15 @@ export default function EarningsPage() {
         <div className="animate-pulse space-y-4">
           <div className="grid gap-3 sm:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="border-0 shadow-sm bg-white dark:bg-gray-900">
+              <Card key={i} className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
                 <CardContent className="p-5 animate-pulse">
-                  <div className="h-3.5 w-20 bg-gray-200 dark:bg-gray-700 rounded" />
-                  <div className="h-7 w-16 bg-gray-200 dark:bg-gray-700 rounded mt-2" />
+                  <div className="h-3.5 w-20 bg-slate-700/40 rounded" />
+                  <div className="h-7 w-16 bg-slate-700/40 rounded mt-2" />
                 </CardContent>
               </Card>
             ))}
           </div>
-          <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-xl" />
+          <div className="h-64 bg-slate-700/40 rounded-xl" />
         </div>
       </div>
     )
@@ -101,11 +110,11 @@ export default function EarningsPage() {
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Earnings</h1>
-            <p className="text-gray-600 dark:text-gray-400">Track your income and payouts</p>
+            <h1 className="text-2xl font-bold text-slate-100 mb-1">Earnings</h1>
+            <p className="text-slate-400">Track your income and payouts</p>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="gap-2">
+            <Button variant="outline" size="sm" className="gap-2 border-slate-border text-slate-300 hover:bg-slate-700/40">
               <Download className="h-4 w-4" /> Export
             </Button>
           </div>
@@ -115,16 +124,16 @@ export default function EarningsPage() {
       {/* Stats Cards */}
       <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid gap-3 sm:grid-cols-3">
         <motion.div variants={itemVariants}>
-          <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+          <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
             <CardContent className="flex items-center justify-between p-5">
               <div>
-                <p className="text-[13px] font-medium text-muted-foreground mb-1">This Week</p>
-                <p className="text-2xl font-bold tracking-tight tabular-nums">{formatCurrency(thisWeek)}</p>
-                <p className="text-xs mt-1.5 flex items-center gap-1 font-medium text-emerald-600 dark:text-emerald-400">
+                <p className="text-[13px] font-medium text-slate-400 mb-1">This Week</p>
+                <p className="text-2xl font-bold tracking-tight tabular-nums text-slate-100">{formatCurrency(thisWeek)}</p>
+                <p className="text-xs mt-1.5 flex items-center gap-1 font-medium text-emerald-300">
                   <TrendingUp className="h-3 w-3" /> +12% vs last week
                 </p>
               </div>
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-teal-500/10 to-emerald-500/10 text-teal-600 dark:text-teal-400">
+              <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-300">
                 <TrendingUp className="h-5 w-5" />
               </div>
             </CardContent>
@@ -132,16 +141,16 @@ export default function EarningsPage() {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+          <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
             <CardContent className="flex items-center justify-between p-5">
               <div>
-                <p className="text-[13px] font-medium text-muted-foreground mb-1">This Month</p>
-                <p className="text-2xl font-bold tracking-tight tabular-nums">{formatCurrency(thisMonth)}</p>
-                <p className="text-xs mt-1.5 flex items-center gap-1 font-medium text-emerald-600 dark:text-emerald-400">
+                <p className="text-[13px] font-medium text-slate-400 mb-1">This Month</p>
+                <p className="text-2xl font-bold tracking-tight tabular-nums text-slate-100">{formatCurrency(thisMonth)}</p>
+                <p className="text-xs mt-1.5 flex items-center gap-1 font-medium text-emerald-300">
                   <TrendingUp className="h-3 w-3" /> +8% vs last month
                 </p>
               </div>
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/10 to-green-500/10 text-emerald-600 dark:text-emerald-400">
+              <div className="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-300">
                 <Calendar className="h-5 w-5" />
               </div>
             </CardContent>
@@ -149,14 +158,14 @@ export default function EarningsPage() {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+          <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
             <CardContent className="flex items-center justify-between p-5">
               <div>
-                <p className="text-[13px] font-medium text-muted-foreground mb-1">Total Earnings</p>
-                <p className="text-2xl font-bold tracking-tight tabular-nums">{formatCurrency(totalEarnings)}</p>
-                <p className="text-xs mt-1.5 text-muted-foreground">{completedJobs.length} completed jobs</p>
+                <p className="text-[13px] font-medium text-slate-400 mb-1">Total Earnings</p>
+                <p className="text-2xl font-bold tracking-tight tabular-nums text-slate-100">{formatCurrency(totalEarnings)}</p>
+                <p className="text-xs mt-1.5 text-slate-400">{completedJobs.length} completed jobs</p>
               </div>
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-500/10 to-yellow-500/10 text-amber-600 dark:text-amber-400">
+              <div className="p-2.5 rounded-xl bg-amber-primary/15 text-amber-primary">
                 <Wallet className="h-5 w-5" />
               </div>
             </CardContent>
@@ -167,19 +176,19 @@ export default function EarningsPage() {
       {/* Pending Earnings */}
       {pendingEarnings > 0 && (
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-          <Card className="border-0 shadow-sm bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20 border border-orange-200 dark:border-orange-800">
+          <Card className="bg-amber-subtle/10 border border-amber-primary/20 rounded-2xl shadow-card-elev">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
-                    <DollarSign className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                  <div className="w-10 h-10 rounded-xl bg-amber-primary/15 flex items-center justify-center">
+                    <DollarSign className="h-5 w-5 text-amber-primary" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Pending Payout</p>
-                    <p className="text-sm text-gray-500">{pendingJobs.length} job{pendingJobs.length > 1 ? "s" : ""} awaiting completion</p>
+                    <p className="font-medium text-slate-100">Pending Payout</p>
+                    <p className="text-sm text-slate-400">{pendingJobs.length} job{pendingJobs.length > 1 ? "s" : ""} awaiting completion</p>
                   </div>
                 </div>
-                <span className="text-2xl font-bold text-orange-600 dark:text-orange-400 tabular-nums">{formatCurrency(pendingEarnings)}</span>
+                <span className="text-2xl font-bold text-amber-glow tabular-nums">{formatCurrency(pendingEarnings)}</span>
               </div>
             </CardContent>
           </Card>
@@ -188,16 +197,16 @@ export default function EarningsPage() {
 
       {/* Earnings Chart */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-base font-bold">Weekly Earnings</h3>
-                <p className="text-xs text-muted-foreground">Last 7 days</p>
+                <h3 className="text-base font-bold text-slate-100">Weekly Earnings</h3>
+                <p className="text-xs text-slate-400">Last 7 days</p>
               </div>
               <div className="flex gap-1.5">
                 {(["week", "month", "year"] as const).map(p => (
-                  <Button key={p} variant={period === p ? "default" : "outline"} size="sm" onClick={() => setPeriod(p)} className="rounded-lg text-xs capitalize">{p}</Button>
+                  <Button key={p} variant={period === p ? "default" : "outline"} size="sm" onClick={() => setPeriod(p)} className={cn("rounded-lg text-xs capitalize", period === p ? "bg-amber-burst text-white shadow-amber-glow" : "border-slate-border text-slate-300 hover:bg-slate-700/40")}>{p}</Button>
                 ))}
               </div>
             </div>
@@ -217,11 +226,11 @@ export default function EarningsPage() {
                         <div
                           className={cn(
                             "w-full rounded-t bg-gradient-to-t from-teal-500 to-teal-400 transition-all",
-                            i === weeklyData.length - 1 && "ring-2 ring-teal-300 ring-offset-2"
+                            i === weeklyData.length - 1 && "ring-2 ring-teal-300 ring-offset-2 ring-offset-obsidian-bg"
                           )}
                           style={{ height: "100%" }}
                         />
-                        <span className="text-[10px] text-muted-foreground font-medium">{dayData.day}</span>
+                        <span className="text-[10px] text-slate-400 font-medium">{dayData.day}</span>
                       </motion.div>
                     </TooltipTrigger>
                     <TooltipContent side="top">{dayData.day}: {formatCurrency(dayData.amount)}</TooltipContent>
@@ -235,40 +244,42 @@ export default function EarningsPage() {
 
       {/* Payout History */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-semibold flex items-center gap-1.5">
-                <BarChart3 className="h-4 w-4 text-teal-500" /> Payout History
-              </CardTitle>
+              <div>
+                <CardTitle className="text-sm font-semibold flex items-center gap-1.5">
+                  <BarChart3 className="h-4 w-4 text-teal-500" /> Payout History
+                </CardTitle>
+              </div>
               <div className="flex gap-1.5">
                 {(["all", "completed", "pending"] as const).map(f => (
-                  <Button key={f} variant={filter === f ? "default" : "outline"} size="sm" onClick={() => setFilter(f)} className="rounded-lg text-xs capitalize">{f}</Button>
+                  <Button key={f} variant={filter === f ? "default" : "outline"} size="sm" onClick={() => setFilter(f)} className={cn("rounded-lg text-xs capitalize", filter === f ? "bg-amber-burst text-white shadow-amber-glow" : "border-slate-border text-slate-300 hover:bg-slate-700/40")}>{f}</Button>
                 ))}
               </div>
             </div>
           </CardHeader>
           <CardContent>
             {filteredJobs.length === 0 ? (
-              <p className="text-center py-8 text-sm text-muted-foreground">No jobs found</p>
+              <p className="text-center py-8 text-sm text-slate-400">No jobs found</p>
             ) : (
               <div className="space-y-2">
                 {filteredJobs.slice(0, 10).map((job: any) => (
-                  <div key={job.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div key={job.id} className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                        <DollarSign className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                      <div className="w-8 h-8 rounded-lg bg-teal-500/15 flex items-center justify-center">
+                        <DollarSign className="h-4 w-4 text-teal-300" />
                       </div>
                       <div>
-                        <p className="font-medium text-sm">{job.service_category?.replace(/_/g, " ")}</p>
-                        <p className="text-xs text-muted-foreground">{job.completed_at ? formatDate(job.completed_at) : "Pending"}</p>
+                        <p className="font-medium text-sm text-slate-100">{job.service_category?.replace(/_/g, " ")}</p>
+                        <p className="text-xs text-slate-400">{job.completed_at ? formatDate(job.completed_at) : "Pending"}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-teal-600 dark:text-teal-400 tabular-nums">{formatCurrency(job.agreed_price || 0)}</p>
+                      <p className="font-bold text-teal-300 tabular-nums">{formatCurrency(job.agreed_price || 0)}</p>
                       <Badge variant="secondary" className={cn(
-                        job.status === "COMPLETED" && "bg-emerald-100 text-emerald-700",
-                        job.status !== "COMPLETED" && "bg-amber-100 text-amber-700"
+                        job.status === "COMPLETED" && "bg-emerald-500/15 text-emerald-300",
+                        job.status !== "COMPLETED" && "bg-amber-subtle text-amber-glow"
                       )}>
                         {job.status}
                       </Badge>
@@ -276,7 +287,7 @@ export default function EarningsPage() {
                   </div>
                 ))}
                 {filteredJobs.length > 10 && (
-                  <Button variant="ghost" className="w-full mt-2 text-sm">
+                  <Button variant="ghost" className="w-full mt-2 text-sm border-slate-border text-slate-300 hover:bg-slate-700/40">
                     View all {filteredJobs.length} transactions <ChevronRight className="h-3.5 w-3.5 ml-1" />
                   </Button>
                 )}
@@ -288,42 +299,42 @@ export default function EarningsPage() {
 
       {/* Payout Schedule */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardHeader>
             <CardTitle className="text-sm font-semibold flex items-center gap-1.5">
               <Calendar className="h-4 w-4 text-teal-500" /> Payout Schedule
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="p-4 bg-teal-50 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-800 rounded-xl">
+            <div className="p-4 bg-teal-500/10 border border-teal-500/20 rounded-xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-teal-500 flex items-center justify-center">
                     <TrendingUp className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Next Payout</p>
-                    <p className="text-sm text-gray-500">Automatic M-Pesa transfer</p>
+                    <p className="font-medium text-slate-100">Next Payout</p>
+                    <p className="text-sm text-slate-400">Automatic M-Pesa transfer</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold text-teal-600 dark:text-teal-400">{formatCurrency(thisWeek + thisMonth)}</p>
-                  <p className="text-xs text-gray-500">Estimated</p>
+                  <p className="text-2xl font-bold text-teal-300">{formatCurrency(thisWeek + thisMonth)}</p>
+                  <p className="text-xs text-slate-400">Estimated</p>
                 </div>
               </div>
             </div>
             <div className="grid gap-3 sm:grid-cols-3 text-sm">
-              <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                <p className="text-muted-foreground">Payout Method</p>
-                <p className="font-medium">M-Pesa</p>
+              <div className="p-3 bg-slate-700/40 rounded-lg">
+                <p className="text-slate-400">Payout Method</p>
+                <p className="font-medium text-slate-100">M-Pesa</p>
               </div>
-              <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                <p className="text-muted-foreground">Frequency</p>
-                <p className="font-medium">Weekly (Mondays)</p>
+              <div className="p-3 bg-slate-700/40 rounded-lg">
+                <p className="text-slate-400">Frequency</p>
+                <p className="font-medium text-slate-100">Weekly (Mondays)</p>
               </div>
-              <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                <p className="text-muted-foreground">Min. Threshold</p>
-                <p className="font-medium">KES 100</p>
+              <div className="p-3 bg-slate-700/40 rounded-lg">
+                <p className="text-slate-400">Min. Threshold</p>
+                <p className="font-medium text-slate-100">KES 100</p>
               </div>
             </div>
           </CardContent>

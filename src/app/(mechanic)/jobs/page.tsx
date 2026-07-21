@@ -22,14 +22,14 @@ import { useRouter } from "next/navigation"
 const supabase = createClient()
 
 const statusColors: Record<string, string> = {
-  PENDING: "bg-yellow-100 text-yellow-800",
-  MATCHED: "bg-blue-100 text-blue-800",
-  ACCEPTED: "bg-blue-100 text-blue-800",
-  EN_ROUTE: "bg-orange-100 text-orange-800",
-  ARRIVED: "bg-purple-100 text-purple-800",
-  IN_PROGRESS: "bg-green-100 text-green-800",
-  COMPLETED: "bg-green-100 text-green-800",
-  CANCELLED: "bg-red-100 text-red-800",
+  PENDING: "bg-amber-subtle text-amber-glow",
+  MATCHED: "bg-blue-500/15 text-blue-300",
+  ACCEPTED: "bg-blue-500/15 text-blue-300",
+  EN_ROUTE: "bg-amber-subtle text-amber-primary",
+  ARRIVED: "bg-violet-500/15 text-violet-300",
+  IN_PROGRESS: "bg-emerald-500/15 text-emerald-300",
+  COMPLETED: "bg-emerald-500/15 text-emerald-300",
+  CANCELLED: "bg-red-500/15 text-red-300",
 }
 
 const distanceColors: Record<string, string> = {
@@ -127,17 +127,17 @@ export default function JobsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50/50 py-8 px-4">
+    <div className="min-h-screen bg-obsidian-bg py-8 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Job Radar</h1>
-              <p className="text-gray-500 mt-1">Available jobs near you</p>
+              <h1 className="text-2xl font-bold text-slate-100">Job Radar</h1>
+              <p className="text-slate-400 mt-1">Available jobs near you</p>
             </div>
             <div className="flex items-center gap-2">
               <Switch checked={true} disabled className="w-12 h-6" />
-              <span className="text-sm text-gray-600">Online</span>
+              <span className="text-sm text-slate-400">Online</span>
             </div>
           </div>
 
@@ -150,8 +150,8 @@ export default function JobsPage() {
                 className={cn(
                   "px-4 py-2 rounded-full text-sm font-medium transition-colors",
                   filter === f
-                    ? "bg-orange-500 text-white"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    ? "bg-amber-burst text-white"
+                    : "bg-slate-700/40 text-slate-300 hover:bg-slate-700"
                 )}
               >
                 {f.charAt(0).toUpperCase() + f.slice(0).replace("_", " ")}
@@ -161,11 +161,11 @@ export default function JobsPage() {
         </motion.div>
 
         {jobs.length === 0 && !loading ? (
-          <motion.div initial="hidden" animate="visible" className="text-center py-16 bg-white rounded-2xl border border-gray-200">
-            <Radar className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No jobs available</h3>
-            <p className="text-gray-500 mb-6">No pending jobs in your area right now</p>
-            <p className="text-sm text-gray-400">Jobs will appear here when customers request help nearby</p>
+          <motion.div initial="hidden" animate="visible" className="text-center py-16 bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
+            <Radar className="h-16 w-16 mx-auto text-slate-600 mb-4" />
+            <h3 className="text-lg font-medium text-slate-100 mb-2">No jobs available</h3>
+            <p className="text-slate-400 mb-6">No pending jobs in your area right now</p>
+            <p className="text-sm text-slate-500">Jobs will appear here when customers request help nearby</p>
           </motion.div>
         ) : (
           <motion.div variants={containerVariants} className="space-y-4">
@@ -178,56 +178,56 @@ export default function JobsPage() {
               .sort((a, b) => a.distance - b.distance)
               .map((job) => (
                 <motion.div key={job.id} variants={cardEntrance}>
-                  <Card className="border border-gray-200 hover:shadow-md transition-shadow">
+                  <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev hover:shadow-amber-glow/20 transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="text-lg font-bold text-gray-900">{job.service_category.replace(/_/g, " ")}</h3>
-                          <p className="text-sm text-gray-500">Posted {formatDate(job.created_at)}</p>
+                          <h3 className="text-lg font-bold text-slate-100">{job.service_category.replace(/_/g, " ")}</h3>
+                          <p className="text-sm text-slate-400">Posted {formatDate(job.created_at)}</p>
                         </div>
-                        <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>
+                        <Badge className="bg-amber-subtle text-amber-glow">Pending</Badge>
                       </div>
 
                       <div className="grid gap-3 md:grid-cols-4 mb-4">
                         <div className="flex items-center gap-2">
-                          <MapPin className="h-5 w-5 text-gray-400" />
-                          <span className="font-medium text-gray-900">{job.distance.toFixed(1)} km</span>
+                          <MapPin className="h-5 w-5 text-slate-400" />
+                          <span className="font-medium text-slate-100">{job.distance.toFixed(1)} km</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <DollarSign className="h-5 w-5 text-gray-400" />
-                          <span className="font-bold text-orange-600">{formatCurrency(job.estimatedPayout || 0)}</span>
+                          <DollarSign className="h-5 w-5 text-slate-400" />
+                          <span className="font-bold text-amber-glow">{formatCurrency(job.estimatedPayout || 0)}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Star className="h-5 w-5 text-gray-400" />
-                          <span className="font-medium text-gray-900">{job.customer?.rating || 4.5}★</span>
+                          <Star className="h-5 w-5 text-slate-400" />
+                          <span className="font-medium text-slate-100">{job.customer?.rating || 4.5}★</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <MapPin className="h-5 w-5 text-gray-400" />
-                          <span className="text-sm text-gray-600 truncate max-w-[150px]">{job.location_address}</span>
+                          <MapPin className="h-5 w-5 text-slate-400" />
+                          <span className="text-sm text-slate-400 truncate max-w-[150px]">{job.location_address}</span>
                         </div>
                       </div>
 
                       {job.vehicle && (
-                        <div className="mb-4 p-3 bg-gray-50 rounded-xl flex items-center gap-3">
-                          <Car className="h-5 w-5 text-gray-400" />
-                          <span className="font-medium text-gray-900">{job.vehicle.make} {job.vehicle.model}</span>
-                          <span className="text-gray-500">({job.vehicle.reg_number})</span>
+                        <div className="mb-4 p-3 bg-slate-700/40 rounded-xl flex items-center gap-3">
+                          <Car className="h-5 w-5 text-slate-400" />
+                          <span className="font-medium text-slate-100">{job.vehicle.make} {job.vehicle.model}</span>
+                          <span className="text-slate-400">({job.vehicle.reg_number})</span>
                         </div>
                       )}
 
                       <div className="flex gap-3">
                         <Button
-                          className="flex-1 bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-90"
+                          className="flex-1 bg-amber-burst text-white shadow-amber-glow hover:opacity-90 rounded-xl min-h-[56px]"
                           onClick={() => acceptJob(job.id)}
                         >
                           <Check className="h-4 w-4 mr-2" />
                           Accept Job
                         </Button>
-                        <Button variant="outline" onClick={() => declineJob(job.id)}>
+                        <Button variant="outline" onClick={() => declineJob(job.id)} className="border-slate-border text-slate-300 hover:bg-slate-700/40 rounded-xl">
                           <X className="h-4 w-4 mr-2" />
                           Decline
                         </Button>
-                        <Button variant="outline" className="whitespace-nowrap" onClick={() => router.push(`/mechanic/jobs/${job.id}`)}>
+                        <Button variant="outline" className="whitespace-nowrap border-slate-border text-slate-300 hover:bg-slate-700/40 rounded-xl" onClick={() => router.push(`/mechanic/jobs/${job.id}`)}>
                           View Details
                         </Button>
                       </div>

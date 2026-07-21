@@ -88,18 +88,18 @@ export default function PartsPage() {
   }, 0)
 
   return (
-    <div className="min-h-screen bg-gray-50/50 py-8 px-4">
+    <div className="min-h-screen bg-obsidian-bg py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Spare Parts Marketplace</h1>
-              <p className="text-gray-600">Genuine parts delivered to your door or mechanic</p>
+              <h1 className="text-2xl font-bold text-slate-100">Spare Parts Marketplace</h1>
+              <p className="text-slate-400">Genuine parts delivered to your door or mechanic</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Button variant="ghost" size="icon" className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white">
+                <Button variant="ghost" size="icon" className="w-12 h-12 rounded-xl bg-amber-burst text-white shadow-amber-glow hover:opacity-90">
                   <Package className="h-5 w-5" />
                 </Button>
                 {getCartCount() > 0 && (
@@ -109,7 +109,7 @@ export default function PartsPage() {
                 )}
               </div>
               {getCartCount() > 0 && (
-                <Link href="/customer/cart" className="text-sm font-medium text-orange-600 hover:underline flex items-center gap-1">
+                <Link href="/customer/cart" className="text-sm font-medium text-amber-glow hover:underline flex items-center gap-1">
                   Cart: {formatCurrency(getCartTotal())} <ChevronRight className="h-4 w-4" />
                 </Link>
               )}
@@ -119,12 +119,12 @@ export default function PartsPage() {
           {/* Search & Filter */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
               <Input
                 placeholder="Search parts by name, brand, or category..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="pl-10"
+                className="pl-10 border-slate-border bg-obsidian-bg text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:ring-amber-primary/20"
               />
             </div>
             <div className="flex gap-2 flex-wrap">
@@ -135,8 +135,8 @@ export default function PartsPage() {
                   size="sm"
                   onClick={() => setCategory(cat)}
                   className={cn(
-                    "rounded-lg",
-                    category === cat && "bg-gradient-to-r from-orange-500 to-amber-500 text-white"
+                    "rounded-xl",
+                    category === cat ? "bg-amber-burst text-white border-slate-border" : "border-slate-border text-slate-300 hover:bg-slate-700/40"
                   )}
                 >
                   {cat}
@@ -150,51 +150,51 @@ export default function PartsPage() {
         {loading ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <Card key={i} className="border-0 bg-white">
+              <Card key={i} className="border-0 bg-obsidian-surface border-slate-border rounded-2xl shadow-card-elev">
                 <CardContent className="p-4">
                   <div className="animate-pulse space-y-3">
-                    <div className="aspect-square bg-gray-200 rounded-xl" />
-                    <div className="h-4 bg-gray-200 rounded w-3/4" />
-                    <div className="h-3 bg-gray-200 rounded w-1/2" />
-                    <div className="h-5 bg-gray-200 rounded w-1/4" />
+                    <div className="aspect-square bg-slate-700/40 rounded-xl" />
+                    <div className="h-4 bg-slate-700/40 rounded w-3/4" />
+                    <div className="h-3 bg-slate-700/40 rounded w-1/2" />
+                    <div className="h-5 bg-slate-700/40 rounded w-1/4" />
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : filteredParts.length === 0 ? (
-          <motion.div initial="hidden" animate="visible" className="text-center py-16 bg-white rounded-2xl border border-gray-200">
-            <Package className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No parts found</h3>
-            <p className="text-gray-500">Try adjusting your search or filter</p>
+          <motion.div initial="hidden" animate="visible" className="text-center py-16 bg-obsidian-surface rounded-2xl border border-slate-border shadow-card-elev">
+            <Package className="h-16 w-16 mx-auto text-slate-600 mb-4" />
+            <h3 className="text-lg font-medium text-slate-100 mb-2">No parts found</h3>
+            <p className="text-slate-400">Try adjusting your search or filter</p>
           </motion.div>
         ) : (
           <motion.div variants={containerVariants} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredParts.map((part, index) => (
               <motion.div key={part.id} variants={cardEntrance} style={{ transitionDelay: `${index * 0.05}s` }}>
-                <Card className="group border-0 shadow-sm hover:shadow-md bg-white transition-all duration-200 h-full flex flex-col">
+                <Card className="group bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev hover:shadow-amber-glow transition-all duration-200 h-full flex flex-col">
                   <CardContent className="p-4 flex-1 flex flex-col">
                     {/* Part Image Placeholder */}
-                    <div className="aspect-square bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl flex items-center justify-center mb-4 relative overflow-hidden">
-                      <Package className="h-12 w-12 text-orange-300" />
+                    <div className="aspect-square bg-gradient-to-br from-amber-primary/20 to-amber-glow/20 rounded-xl flex items-center justify-center mb-4 relative overflow-hidden">
+                      <Package className="h-12 w-12 text-amber-primary" />
                       {part.stock < 10 && (
-                        <Badge className="absolute top-2 right-2 bg-amber-500 text-white text-[10px]">Low Stock</Badge>
+                        <Badge className="absolute top-2 right-2 bg-amber-primary text-white text-[10px]">Low Stock</Badge>
                       )}
                     </div>
 
                     <div className="flex-1 flex flex-col">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <Badge variant="secondary" className="text-[10px] px-2 py-0.5">{part.category}</Badge>
-                        <span className="text-xs text-gray-500">{part.brand}</span>
+                        <Badge variant="secondary" className="text-[10px] px-2 py-0.5 bg-slate-700/40 text-slate-300">{part.category}</Badge>
+                        <span className="text-xs text-slate-400">{part.brand}</span>
                       </div>
-                      <h3 className="font-bold text-gray-900 mb-1 line-clamp-1">{part.name}</h3>
-                      <p className="text-xs text-gray-500 mb-3 line-clamp-1">Fits: {part.compatible.join(", ")}</p>
+                      <h3 className="font-bold text-slate-100 mb-1 line-clamp-1">{part.name}</h3>
+                      <p className="text-xs text-slate-400 mb-3 line-clamp-1">Fits: {part.compatible.join(", ")}</p>
 
-                      <div className="flex items-center justify-between pt-2 mt-auto border-t">
-                        <span className="text-lg font-bold text-orange-600 tabular-nums">{formatCurrency(part.price)}</span>
+                      <div className="flex items-center justify-between pt-2 mt-auto border-t border-slate-border">
+                        <span className="text-lg font-bold text-amber-glow tabular-nums">{formatCurrency(part.price)}</span>
                         <Button
                           size="sm"
-                          className="bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90 gap-1.5"
+                          className="bg-amber-burst text-white shadow-amber-glow hover:opacity-90 gap-1.5 rounded-xl min-h-[56px]"
                           onClick={() => addToCart(part.id)}
                         >
                           <Truck className="h-3.5 w-3.5" />
@@ -214,20 +214,20 @@ export default function PartsPage() {
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
-            className="fixed bottom-0 left-0 right-0 md:relative md:static md:opacity-100 md:translate-y-0 bg-white border-t border-gray-200 p-4 md:p-0 shadow-lg md:shadow-none z-50"
+            className="fixed bottom-0 left-0 right-0 md:relative md:static md:opacity-100 md:translate-y-0 bg-obsidian-surface border-t border-slate-border p-4 md:p-0 shadow-lg md:shadow-none z-50"
           >
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-xl bg-amber-burst flex items-center justify-center">
                   <Package className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">{getCartCount()} item{getCartCount() > 1 ? "s" : ""} in cart</p>
-                  <p className="text-sm text-gray-500">Total: <span className="font-bold text-orange-600">{formatCurrency(getCartTotal())}</span></p>
+                  <p className="font-bold text-slate-100">{getCartCount()} item{getCartCount() > 1 ? "s" : ""} in cart</p>
+                  <p className="text-sm text-slate-400">Total: <span className="font-bold text-amber-glow">{formatCurrency(getCartTotal())}</span></p>
                 </div>
               </div>
               <Link href="/customer/cart">
-                <Button className="bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90 w-full md:w-auto" size="lg">
+                <Button className="bg-amber-burst text-white shadow-amber-glow hover:opacity-90 w-full md:w-auto rounded-xl min-h-[56px]" size="lg">
                   <CreditCard className="h-4 w-4 mr-2" />
                   Proceed to Checkout
                 </Button>

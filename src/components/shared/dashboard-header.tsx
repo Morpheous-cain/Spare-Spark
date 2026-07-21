@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Menu, LogOut, Bell, ChevronDown, Wrench, Car } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { signOutAction } from "@/lib/actions"
 
 interface DashboardHeaderProps {
   userName: string
@@ -19,19 +20,19 @@ export default function DashboardHeader({
 }: DashboardHeaderProps) {
   const roleBadgeColor =
     userRole === "mechanic"
-      ? "bg-orange-100 text-orange-700"
-      : "bg-green-100 text-green-700"
+      ? "bg-amber-subtle text-amber-glow border-amber-primary/30"
+      : "bg-green-500/15 text-green-400 border-green-500/30"
 
   const RoleIcon = userRole === "mechanic" ? Wrench : Car
 
   return (
-    <header className="sticky top-0 z-30 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 border-b border-slate-border bg-obsidian-surface/80 backdrop-blur-xl">
       <div className="flex h-16 items-center justify-between px-4 lg:px-6">
         {/* Left: hamburger + logo */}
         <div className="flex items-center gap-3">
           <button
             type="button"
-            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 lg:hidden"
+            className="rounded-xl p-2 text-slate-400 hover:bg-slate-700/40 hover:text-white transition-colors lg:hidden"
             onClick={onMenuToggle}
             aria-label="Toggle menu"
           >
@@ -39,56 +40,58 @@ export default function DashboardHeader({
           </button>
 
           <Link href="/" className="flex items-center gap-2 lg:hidden">
-            <Wrench className="h-6 w-6 text-orange-500" />
-            <span className="text-lg font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-              Sparespark
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-burst shadow-amber-glow">
+              <Wrench className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-lg font-bold tracking-tight text-slate-100">
+              Spare<span className="text-amber-primary">Spark</span>
             </span>
           </Link>
         </div>
 
-        {/* Center: search (desktop) */}
+        {/* Center: search (desktop) — design-doc §7 live transparency */}
         <div className="hidden md:flex flex-1 max-w-md mx-4">
           <div className="relative w-full">
             <input
               type="search"
               placeholder="Search jobs, parts, vehicles..."
-              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-sm placeholder-gray-400 focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+              className="w-full min-h-[44px] rounded-xl border border-slate-border bg-obsidian-bg px-4 py-2 text-sm text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:outline-none focus:ring-2 focus:ring-amber-primary/20"
             />
           </div>
         </div>
 
         {/* Right: notifications + user */}
         <div className="flex items-center gap-3">
-          {/* Notifications */}
+          {/* Notifications — design-doc live transparency */}
           <button
             type="button"
-            className="relative rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            className="relative rounded-full p-2 text-slate-400 hover:bg-slate-700/40 hover:text-white transition-colors"
             aria-label="Notifications"
           >
             <Bell className="h-5 w-5" />
-            <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
+            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-amber-primary ring-2 ring-obsidian-bg animate-ping" />
           </button>
 
-          {/* User info */}
+          {/* User info — design-doc §3 trust transparency */}
           <div className="flex items-center gap-3">
             {/* Avatar */}
             {avatarUrl ? (
               <img
                 src={avatarUrl}
                 alt={userName}
-                className="h-8 w-8 rounded-full object-cover ring-2 ring-gray-200"
+                className="h-8 w-8 rounded-full object-cover ring-2 ring-slate-border"
               />
             ) : (
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-100 text-sm font-semibold text-orange-600">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-burst text-sm font-semibold text-white">
                 {userName.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="hidden md:block">
-              <p className="text-sm font-medium text-gray-900">{userName}</p>
+              <p className="text-sm font-medium text-slate-100 truncate max-w-[140px]">{userName}</p>
               <span
                 className={cn(
-                  "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium capitalize",
+                  "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium capitalize border",
                   roleBadgeColor
                 )}
               >
@@ -97,14 +100,14 @@ export default function DashboardHeader({
               </span>
             </div>
 
-            <ChevronDown className="hidden h-4 w-4 text-gray-400 md:block" />
+            <ChevronDown className="hidden h-4 w-4 text-slate-500 md:block" />
           </div>
 
-          {/* Sign out */}
-          <form action="/auth/sign-out" method="POST">
+          {/* Sign out — server action (reliable + design-doc amber destructive) */}
+          <form action={() => signOutAction()}>
             <button
               type="submit"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+              className="flex min-h-[44px] items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-300 hover:bg-red-500/15 hover:text-red-400 border border-slate-border transition-all duration-200"
             >
               <LogOut className="h-4 w-4" />
               <span className="hidden md:inline">Sign out</span>

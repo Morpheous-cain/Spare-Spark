@@ -146,8 +146,8 @@ export default function AvailabilityPage() {
     return (
       <div className="p-4 lg:p-6 space-y-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
-          <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-xl" />
+          <div className="h-8 bg-slate-700/40 rounded w-1/3" />
+          <div className="h-64 bg-slate-700/40 rounded-xl" />
         </div>
       </div>
     )
@@ -157,13 +157,13 @@ export default function AvailabilityPage() {
     <div className="p-4 lg:p-6 space-y-6">
       {/* Header */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Availability & Schedule</h1>
-        <p className="text-gray-600 dark:text-gray-400">Manage when you're available for jobs and your service area</p>
+        <h1 className="text-2xl font-bold text-slate-100 mb-2">Availability & Schedule</h1>
+        <p className="text-slate-400">Manage when you're available for jobs and your service area</p>
       </motion.div>
 
       {/* Online Status & Radius */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -171,8 +171,8 @@ export default function AvailabilityPage() {
                   <Clock className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Online Status</p>
-                  <p className="font-semibold text-gray-900 dark:text-white">{isOnline ? "Online" : "Offline"}</p>
+                  <p className="text-sm text-slate-400">Online Status</p>
+                  <p className="font-semibold text-slate-100">{isOnline ? "Online" : "Offline"}</p>
                 </div>
               </div>
               <Switch
@@ -189,15 +189,15 @@ export default function AvailabilityPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardContent className="p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-primary to-amber-glow flex items-center justify-center">
                 <MapPin className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Service Radius</p>
-                <p className="font-semibold text-gray-900 dark:text-white">{serviceRadius} km</p>
+                <p className="text-sm text-slate-400">Service Radius</p>
+                <p className="font-semibold text-slate-100">{serviceRadius} km</p>
               </div>
             </div>
             <div className="mt-4">
@@ -209,7 +209,7 @@ export default function AvailabilityPage() {
                 step={5}
                 className="w-full"
               />
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <div className="flex justify-between text-xs text-slate-400 mt-1">
                 <span>5 km</span>
                 <span>50 km</span>
               </div>
@@ -217,15 +217,15 @@ export default function AvailabilityPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardContent className="p-6">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-violet-500 flex items-center justify-center">
                 <Calendar className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Active Days</p>
-                <p className="font-semibold text-gray-900 dark:text-white">
+                <p className="text-sm text-slate-400">Active Days</p>
+                <p className="font-semibold text-slate-100">
                   {Object.values(schedule).filter(s => s.enabled).length} / 7 days
                 </p>
               </div>
@@ -236,7 +236,7 @@ export default function AvailabilityPage() {
 
       {/* Weekly Schedule */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">Weekly Schedule</CardTitle>
             <CardDescription>Set your working hours for each day. Toggle days on/off and adjust times.</CardDescription>
@@ -246,7 +246,7 @@ export default function AvailabilityPage() {
               const daySchedule = schedule[day.key] || { start: "08:00", end: "17:00", enabled: false }
               return (
                 <motion.div key={day.key} variants={itemVariants} style={{ transitionDelay: `${index * 0.05}s` }}
-                  className={cn("flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 rounded-xl border transition-colors", daySchedule.enabled ? "bg-teal-50 dark:bg-teal-950/20 border-teal-200 dark:border-teal-800" : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700")}>
+                  className={cn("flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 rounded-xl border transition-colors", daySchedule.enabled ? "bg-teal-500/10 border-teal-500/20" : "bg-slate-700/40 border-slate-border")}>
                   <div className="flex items-center gap-4 flex-1 min-w-0">
                     <Button
                       variant={daySchedule.enabled ? "default" : "outline"}
@@ -260,7 +260,7 @@ export default function AvailabilityPage() {
                     {daySchedule.enabled && (
                       <div className="flex items-center gap-3 flex-wrap">
                         <div className="space-y-1">
-                          <Label className="text-xs text-gray-500 dark:text-gray-400">Start</Label>
+                          <Label className="text-xs text-slate-400">Start</Label>
                           <Select value={daySchedule.start} onValueChange={(v) => updateTime(day.key, "start", v)}>
                             <SelectTrigger className="w-[110px] h-8 text-sm">
                               <SelectValue placeholder="Start" />
@@ -270,9 +270,9 @@ export default function AvailabilityPage() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <span className="text-gray-400 self-center">to</span>
+                        <span className="text-slate-500 self-center">to</span>
                         <div className="space-y-1">
-                          <Label className="text-xs text-gray-500 dark:text-gray-400">End</Label>
+                          <Label className="text-xs text-slate-400">End</Label>
                           <Select value={daySchedule.end} onValueChange={(v) => updateTime(day.key, "end", v)}>
                             <SelectTrigger className="w-[110px] h-8 text-sm">
                               <SelectValue placeholder="End" />
@@ -294,7 +294,7 @@ export default function AvailabilityPage() {
 
       {/* Time Off */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-        <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+        <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="text-lg font-semibold">Time Off</CardTitle>
@@ -306,27 +306,27 @@ export default function AvailabilityPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             {timeOff.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <Calendar className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-700 mb-3" />
-                <p className="font-medium mb-1">No time off scheduled</p>
+              <div className="text-center py-8 text-slate-400">
+                <Calendar className="h-12 w-12 mx-auto text-slate-600 mb-3" />
+                <p className="font-medium mb-1 text-slate-100">No time off scheduled</p>
                 <p className="text-sm">Add vacation or personal days</p>
               </div>
             ) : (
               <div className="space-y-2">
                 {timeOff.map((off: any) => (
-                  <div key={`${off.start_date}-${off.end_date}`} className="flex items-center justify-between p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                  <div key={`${off.start_date}-${off.end_date}`} className="flex items-center justify-between p-3 bg-amber-subtle/10 border border-amber-primary/20 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
-                        <Calendar className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                      <div className="w-10 h-10 rounded-lg bg-amber-primary/15 flex items-center justify-center">
+                        <Calendar className="h-5 w-5 text-amber-primary" />
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900 dark:text-white">{off.reason || "Time Off"}</p>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-medium text-slate-100">{off.reason || "Time Off"}</p>
+                        <p className="text-sm text-slate-400">
                           {new Date(off.start_date).toLocaleDateString()} - {new Date(off.end_date).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm" className="text-red-500 hover:text-red-600" onClick={() => {}}>
+                    <Button variant="ghost" size="sm" className="text-red-400 hover:text-red-300" onClick={() => {}}>
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -340,7 +340,7 @@ export default function AvailabilityPage() {
       {/* Save Button */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
         <div className="flex justify-end">
-          <Button className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:opacity-90 gap-2" disabled={saving} onClick={handleSaveAvailability}>
+          <Button className="bg-amber-burst text-white shadow-amber-glow hover:opacity-90 gap-2 rounded-xl min-h-[56px]" disabled={saving} onClick={handleSaveAvailability}>
             <Save className="h-4 w-4" />
             {saving ? "Saving..." : "Save Schedule"}
           </Button>
@@ -360,33 +360,32 @@ export default function AvailabilityPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-white dark:bg-gray-900 rounded-2xl p-6 w-full max-w-md"
+              className="bg-obsidian-surface border border-slate-border rounded-2xl p-6 w-full max-w-md shadow-card-elev"
             >
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-bold">Add Time Off</h2>
-                <button onClick={() => setShowTimeOffModal(false)} className="text-gray-400 hover:text-gray-600">
+                <h2 className="text-lg font-bold text-slate-100">Add Time Off</h2>
+                <button onClick={() => setShowTimeOffModal(false)} className="text-slate-400 hover:text-slate-300">
                   <XCircle className="h-6 w-6" />
                 </button>
               </div>
               <form onSubmit={(e) => { e.preventDefault(); addTimeOff() }} className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Start Date</Label>
-                  <Input type="date" value={timeOffForm.startDate} onChange={e => setTimeOffForm(prev => ({ ...prev, startDate: e.target.value }))} required min={new Date().toISOString().split("T")[0]} />
+                  <Label className="text-slate-300">Start Date</Label>
+                  <Input type="date" value={timeOffForm.startDate} onChange={e => setTimeOffForm(prev => ({ ...prev, startDate: e.target.value }))} required min={new Date().toISOString().split("T")[0]} className="bg-obsidian-bg border-slate-border text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:ring-amber-primary/20" />
                 </div>
                 <div className="space-y-2">
-                  <Label>End Date</Label>
-                  <Input type="date" value={timeOffForm.endDate} onChange={e => setTimeOffForm(prev => ({ ...prev, endDate: e.target.value }))} required min={timeOffForm.startDate || new Date().toISOString().split("T")[0]} />
+                  <Label className="text-slate-300">End Date</Label>
+                  <Input type="date" value={timeOffForm.endDate} onChange={e => setTimeOffForm(prev => ({ ...prev, endDate: e.target.value }))} required min={timeOffForm.startDate || new Date().toISOString().split("T")[0]} className="bg-obsidian-bg border-slate-border text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:ring-amber-primary/20" />
                 </div>
                 <div className="space-y-2">
-                  <Label>Reason (optional)</Label>
-                  <Input value={timeOffForm.reason} onChange={e => setTimeOffForm(prev => ({ ...prev, reason: e.target.value }))} placeholder="Vacation, Personal, Medical, etc." />
+                  <Label className="text-slate-300">Reason (optional)</Label>
+                  <Input value={timeOffForm.reason} onChange={e => setTimeOffForm(prev => ({ ...prev, reason: e.target.value }))} placeholder="Vacation, Personal, Medical, etc." className="bg-obsidian-bg border-slate-border text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:ring-amber-primary/20" />
                 </div>
                 <div className="flex gap-3 pt-2">
-                  <Button type="button" variant="outline" onClick={() => setShowTimeOffModal(false)} className="flex-1">Cancel</Button>
-                  <Button type="submit" className="flex-1 bg-gradient-to-r from-teal-500 to-emerald-500 text-white hover:opacity-90">Add Time Off</Button>
+                  <Button type="button" variant="outline" onClick={() => setShowTimeOffModal(false)} className="flex-1 border-slate-border text-slate-300 hover:bg-slate-700/40">Cancel</Button>
+                  <Button type="submit" className="flex-1 bg-amber-burst text-white shadow-amber-glow hover:opacity-90 rounded-xl min-h-[56px]">Add Time Off</Button>
                 </div>
-              </form>
-            </motion.div>
+              </form            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

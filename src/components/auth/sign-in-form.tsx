@@ -31,7 +31,8 @@ export function SignInForm() {
       setError(error.message)
     } else {
       // Redirect to home - middleware will handle role-based redirect to proper dashboard
-      window.location.href = "/customer/dashboard"
+      const redirectTo = new URLSearchParams(window.location.search).get("redirectTo") || "/customer/dashboard"
+        window.location.href = redirectTo
     }
     setLoading(false)
   }

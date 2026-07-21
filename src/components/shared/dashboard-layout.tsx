@@ -24,7 +24,14 @@ export default function DashboardLayout({
   const pathname = usePathname()
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div className="min-h-screen bg-obsidian-bg">
+      {/* Animated background orbs — design-doc §3 radar glow */}
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <div className="bg-orb bg-orb-1" />
+        <div className="bg-orb bg-orb-2" />
+        <div className="bg-orb bg-orb-3" />
+      </div>
+
       {/* Sidebar */}
       <DashboardSidebar
         userRole={userRole}
@@ -34,8 +41,8 @@ export default function DashboardLayout({
       />
 
       {/* Main area */}
-      <div className="lg:pl-64">
-        {/* Header */}
+      <div className="relative z-10 lg:pl-72">
+        {/* Header — design-doc §1 CTA above fold */}
         <DashboardHeader
           userName={userName}
           userRole={userRole}
@@ -43,8 +50,8 @@ export default function DashboardLayout({
           onMenuToggle={() => setSidebarOpen((prev) => !prev)}
         />
 
-        {/* Page content with transitions */}
-        <main className="min-h-[calc(100vh-4rem)]">
+        {/* Page content with transitions — 8pt spacing system */}
+        <main className="min-h-[calc(100vh-4rem)] p-4 lg:p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}

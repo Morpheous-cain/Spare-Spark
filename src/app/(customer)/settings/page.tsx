@@ -85,8 +85,8 @@ export default function SettingsPage() {
     return (
       <div className="p-4 lg:p-6 space-y-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4" />
-          <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded-xl" />
+          <div className="h-8 bg-slate-700/40 rounded w-1/4" />
+          <div className="h-64 bg-slate-700/40 rounded-xl" />
         </div>
       </div>
     )
@@ -96,14 +96,14 @@ export default function SettingsPage() {
     <div className="p-4 lg:p-6 space-y-6">
       {/* Header */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Settings</h1>
-        <p className="text-gray-600 dark:text-gray-400">Manage your account preferences and settings</p>
+        <h1 className="text-2xl font-bold text-slate-100 mb-2">Settings</h1>
+        <p className="text-slate-400">Manage your account preferences and settings</p>
       </motion.div>
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar Navigation */}
         <motion.aside initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="lg:w-64 flex-shrink-0">
-          <Card className="border-0 shadow-sm bg-white dark:bg-gray-900 sticky top-24">
+          <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev sticky top-24">
             <CardContent className="p-3">
               <nav className="space-y-1">
                 {sections.map((section) => (
@@ -113,8 +113,8 @@ export default function SettingsPage() {
                     className={cn(
                       "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left",
                       activeSection === section.id
-                        ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
-                        : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
+                        ? "bg-amber-subtle text-amber-glow"
+                        : "text-slate-400 hover:bg-slate-700/40 hover:text-slate-100"
                     )}
                   >
                     <section.icon className="h-5 w-5 shrink-0" />
@@ -130,98 +130,100 @@ export default function SettingsPage() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="flex-1">
           {/* General Settings */}
           {activeSection === "general" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold">General Settings</CardTitle>
-                <CardDescription>Manage your basic account information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center gap-6">
-                  <div className="relative">
-                    <Avatar className="h-20 w-20">
-                      <AvatarImage src={profile?.avatar_url} alt={profile?.full_name || "User"} />
-                      <AvatarFallback className="bg-gradient-to-br from-orange-500 to-amber-500 text-white text-2xl font-bold">
-                        {(profile?.full_name || "U").charAt(0).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <label className="absolute bottom-0 right-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors">
-                      <Camera className="h-4 w-4 text-white" />
-                      <input type="file" accept="image/*" className="sr-only" />
-                    </label>
+            <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">General Settings</CardTitle>
+                  <CardDescription>Manage your basic account information</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center gap-6">
+                    <div className="relative">
+                      <Avatar className="h-20 w-20">
+                        <AvatarImage src={profile?.avatar_url} alt={profile?.full_name || "User"} />
+                        <AvatarFallback className="bg-amber-burst text-white text-2xl font-bold">
+                          {(profile?.full_name || "U").charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <label className="absolute bottom-0 right-0 w-8 h-8 bg-amber-primary rounded-full flex items-center justify-center cursor-pointer hover:bg-amber-glow transition-colors">
+                        <Camera className="h-4 w-4 text-white" />
+                        <input type="file" accept="image/*" className="sr-only" />
+                      </label>
+                    </div>
+                    <div className="flex-1 space-y-4">
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label>Full Name</Label>
+                          <Input
+                            defaultValue={profile?.full_name || ""}
+                            placeholder="John Doe"
+                            className="bg-obsidian-bg border-slate-border text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:ring-amber-primary/20"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Phone Number</Label>
+                          <Input
+                            type="tel"
+                            defaultValue={profile?.phone || ""}
+                            placeholder="+254 7XX XXX XXX"
+                            className="bg-obsidian-bg border-slate-border text-slate-100 placeholder-slate-500 focus:border-amber-primary focus:ring-amber-primary/20"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Email Address</Label>
+                        <Input
+                          type="email"
+                          defaultValue={profile?.email || ""}
+                          disabled
+                          className="bg-slate-700/40 border-slate-border text-slate-100 placeholder-slate-500"
+                        />
+                        <p className="text-xs text-slate-400">Email cannot be changed from here. Contact support to update.</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-1 space-y-4">
+
+                  <Separator className="border-slate-border" />
+
+                  <div className="space-y-4">
+                    <h4 className="font-medium text-slate-100">Language & Region</h4>
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        <Label>Full Name</Label>
-                        <Input
-                          defaultValue={profile?.full_name || ""}
-                          placeholder="John Doe"
-                        />
+                        <Label>Language</Label>
+                        <select className="w-full rounded-lg border border-slate-border bg-obsidian-bg px-4 py-2 text-sm text-slate-100 focus:border-amber-primary focus:outline-none focus:ring-2 focus:ring-amber-primary/20">
+                          <option>English</option>
+                          <option>Kiswahili</option>
+                        </select>
                       </div>
                       <div className="space-y-2">
-                        <Label>Phone Number</Label>
-                        <Input
-                          type="tel"
-                          defaultValue={profile?.phone || ""}
-                          placeholder="+254 7XX XXX XXX"
-                        />
+                        <Label>Currency</Label>
+                        <select className="w-full rounded-lg border border-slate-border bg-obsidian-bg px-4 py-2 text-sm text-slate-100 focus:border-amber-primary focus:outline-none focus:ring-2 focus:ring-amber-primary/20">
+                          <option>KES - Kenyan Shilling</option>
+                        </select>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <Label>Email Address</Label>
-                      <Input
-                        type="email"
-                        defaultValue={profile?.email || ""}
-                        disabled
-                        className="bg-gray-50 dark:bg-gray-800/50"
-                      />
-                      <p className="text-xs text-gray-500">Email cannot be changed from here. Contact support to update.</p>
-                    </div>
                   </div>
-                </div>
 
-                <Separator />
-
-                <div className="space-y-4">
-                  <h4 className="font-medium text-gray-900 dark:text-white">Language & Region</h4>
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label>Language</Label>
-                      <select className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-4 py-2 text-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100">
-                        <option>English</option>
-                        <option>Kiswahili</option>
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Currency</Label>
-                      <select className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-4 py-2 text-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100">
-                        <option>KES - Kenyan Shilling</option>
-                      </select>
-                    </div>
+                  <div className="flex justify-end pt-4 border-t border-slate-border">
+                    <Button className="bg-amber-burst text-white shadow-amber-glow hover:opacity-90 rounded-xl min-h-[56px] gap-2" disabled={saving}>
+                      <SaveIcon className="h-4 w-4" />
+                      {saving ? "Saving..." : "Save Changes"}
+                    </Button>
                   </div>
-                </div>
-
-                <div className="flex justify-end pt-4 border-t">
-                  <Button className="bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90 gap-2" disabled={saving}>
-                    <SaveIcon className="h-4 w-4" />
-                    {saving ? "Saving..." : "Save Changes"}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
           )}
 
           {/* Notifications */}
           {activeSection === "notifications" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+            <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold">Notification Preferences</CardTitle>
                 <CardDescription>Choose how and when you want to be notified</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-orange-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-amber-primary" />
                     Channels
                   </h4>
                   <div className="space-y-3">
@@ -230,14 +232,14 @@ export default function SettingsPage() {
                       { key: "sms", label: "SMS", desc: "Get booking confirmations via text message" },
                       { key: "email", label: "Email", desc: "Receive updates and receipts via email" },
                     ].map((item) => (
-                      <div key={item.key} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                      <div key={item.key} className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-white dark:bg-gray-900 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                            <Bell className="h-4 w-4 text-gray-500" />
+                          <div className="w-9 h-9 rounded-lg bg-obsidian-bg flex items-center justify-center border border-slate-border">
+                            <Bell className="h-4 w-4 text-slate-400" />
                           </div>
                           <div>
-                            <p className="font-medium text-sm">{item.label}</p>
-                            <p className="text-xs text-gray-500">{item.desc}</p>
+                            <p className="font-medium text-sm text-slate-100">{item.label}</p>
+                            <p className="text-xs text-slate-400">{item.desc}</p>
                           </div>
                         </div>
                         <Switch
@@ -249,11 +251,11 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="border-slate-border" />
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Truck className="h-4 w-4 text-orange-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Truck className="h-4 w-4 text-amber-primary" />
                     Job Updates
                   </h4>
                   <div className="space-y-3">
@@ -262,14 +264,14 @@ export default function SettingsPage() {
                       { key: "paymentReceipts", label: "Payment Receipts", desc: "Digital receipts after each completed service" },
                       { key: "weeklyDigest", label: "Weekly Digest", desc: "Summary of your activity every Monday" },
                     ].map((item) => (
-                      <div key={item.key} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                      <div key={item.key} className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-white dark:bg-gray-900 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          <div className="w-9 h-9 rounded-lg bg-obsidian-bg flex items-center justify-center border border-slate-border">
+                            <CheckCircle className="h-4 w-4 text-emerald-500" />
                           </div>
                           <div>
-                            <p className="font-medium text-sm">{item.label}</p>
-                            <p className="text-xs text-gray-500">{item.desc}</p>
+                            <p className="font-medium text-sm text-slate-100">{item.label}</p>
+                            <p className="text-xs text-slate-400">{item.desc}</p>
                           </div>
                         </div>
                         <Switch
@@ -281,22 +283,22 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="border-slate-border" />
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Star className="h-4 w-4 text-amber-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Star className="h-4 w-4 text-amber-glow" />
                     Marketing
                   </h4>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-white dark:bg-gray-900 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                          <Star className="h-4 w-4 text-amber-500" />
+                        <div className="w-9 h-9 rounded-lg bg-obsidian-bg flex items-center justify-center border border-slate-border">
+                          <Star className="h-4 w-4 text-amber-glow" />
                         </div>
                         <div>
-                          <p className="font-medium text-sm">Promotional Offers</p>
-                          <p className="text-xs text-gray-500">Special deals, discounts, and new service announcements</p>
+                          <p className="font-medium text-sm text-slate-100">Promotional Offers</p>
+                          <p className="text-xs text-slate-400">Special deals, discounts, and new service announcements</p>
                         </div>
                       </div>
                       <Switch
@@ -312,15 +314,15 @@ export default function SettingsPage() {
 
           {/* Appearance */}
           {activeSection === "appearance" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+            <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold">Appearance</CardTitle>
                 <CardDescription>Customize how Sparespark looks on your device</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Palette className="h-4 w-4 text-orange-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Palette className="h-4 w-4 text-amber-primary" />
                     Theme
                   </h4>
                   <div className="grid gap-3 sm:grid-cols-3">
@@ -335,68 +337,68 @@ export default function SettingsPage() {
                         className={cn(
                           "relative p-4 rounded-xl border-2 transition-all text-left",
                           theme === option.value
-                            ? "border-orange-500 bg-orange-50 dark:bg-orange-950/30"
-                            : "border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-700"
+                            ? "border-amber-primary bg-amber-subtle/30"
+                            : "border-slate-border hover:border-amber-primary/50"
                         )}
                       >
                         <div className="flex items-center gap-3">
                           <div className={cn(
                             "w-10 h-10 rounded-lg flex items-center justify-center",
                             theme === option.value
-                              ? "bg-orange-500 text-white"
-                              : "bg-gray-100 dark:bg-gray-800 text-gray-500"
+                              ? "bg-amber-primary text-white"
+                              : "bg-slate-700/40 text-slate-400"
                           )}>
                             <option.icon className="h-5 w-5" />
                           </div>
                           <div>
-                            <p className="font-medium text-sm">{option.label}</p>
-                            <p className="text-xs text-gray-500">{option.desc}</p>
+                            <p className="font-medium text-sm text-slate-100">{option.label}</p>
+                            <p className="text-xs text-slate-400">{option.desc}</p>
                           </div>
                         </div>
                         {theme === option.value && (
-                          <CheckCircle className="absolute top-2 right-2 h-5 w-5 text-orange-500" />
+                          <CheckCircle className="absolute top-2 right-2 h-5 w-5 text-amber-primary" />
                         )}
                       </button>
                     ))}
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="border-slate-border" />
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <CreditCard className="h-4 w-4 text-orange-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <CreditCard className="h-4 w-4 text-amber-primary" />
                     Compact Mode
                   </h4>
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-white dark:bg-gray-900 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                        <CreditCard className="h-4 w-4 text-gray-500" />
+                      <div className="w-9 h-9 rounded-lg bg-obsidian-bg flex items-center justify-center border border-slate-border">
+                        <CreditCard className="h-4 w-4 text-slate-400" />
                       </div>
                       <div>
-                        <p className="font-medium text-sm">Compact Interface</p>
-                        <p className="text-xs text-gray-500">Reduce spacing for more content on screen</p>
+                        <p className="font-medium text-sm text-slate-100">Compact Interface</p>
+                        <p className="text-xs text-slate-400">Reduce spacing for more content on screen</p>
                       </div>
                     </div>
                     <Switch checked={false} />
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="border-slate-border" />
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Eye className="h-4 w-4 text-orange-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Eye className="h-4 w-4 text-amber-primary" />
                     Animations
                   </h4>
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-white dark:bg-gray-900 flex items-center justify-center border border-gray-200 dark:border-gray-700">
-                        <Eye className="h-4 w-4 text-gray-500" />
+                      <div className="w-9 h-9 rounded-lg bg-obsidian-bg flex items-center justify-center border border-slate-border">
+                        <Eye className="h-4 w-4 text-slate-400" />
                       </div>
                       <div>
-                        <p className="font-medium text-sm">Motion Effects</p>
-                        <p className="text-xs text-gray-500">Enable smooth transitions and animations</p>
+                        <p className="font-medium text-sm text-slate-100">Motion Effects</p>
+                        <p className="text-xs text-slate-400">Enable smooth transitions and animations</p>
                       </div>
                     </div>
                     <Switch defaultChecked={true} />
@@ -408,34 +410,34 @@ export default function SettingsPage() {
 
           {/* Security */}
           {activeSection === "security" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+            <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold">Security</CardTitle>
                 <CardDescription>Protect your account with strong security settings</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Lock className="h-4 w-4 text-orange-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Lock className="h-4 w-4 text-amber-primary" />
                     Password
                   </h4>
                   <div className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start gap-3">
+                    <Button variant="outline" className="w-full justify-start gap-3 border-slate-border text-slate-300 hover:bg-slate-700/40">
                       <Lock className="h-4 w-4" />
                       <span>Change Password</span>
                       <ChevronRight className="h-4 w-4 ml-auto" />
                     </Button>
-                    <Button variant="outline" className="w-full justify-start gap-3">
+                    <Button variant="outline" className="w-full justify-start gap-3 border-slate-border text-slate-300 hover:bg-slate-700/40">
                       <Shield className="h-4 w-4" />
                       <span>Two-Factor Authentication</span>
                       <ChevronRight className="h-4 w-4 ml-auto" />
                     </Button>
-                    <Button variant="outline" className="w-full justify-start gap-3">
+                    <Button variant="outline" className="w-full justify-start gap-3 border-slate-border text-slate-300 hover:bg-slate-700/40">
                       <Eye className="h-4 w-4" />
                       <span>Active Sessions</span>
                       <ChevronRight className="h-4 w-4 ml-auto" />
                     </Button>
-                    <Button variant="outline" className="w-full justify-start gap-3">
+                    <Button variant="outline" className="w-full justify-start gap-3 border-slate-border text-slate-300 hover:bg-slate-700/40">
                       <Key className="h-4 w-4" />
                       <span>Passkeys</span>
                       <ChevronRight className="h-4 w-4 ml-auto" />
@@ -443,11 +445,11 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <Separator />
+                <Separator className="border-slate-border" />
 
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-green-500" />
+                  <h4 className="font-medium text-slate-100 mb-4 flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-emerald-500" />
                     Account Security Status
                   </h4>
                   <div className="space-y-3">
@@ -457,27 +459,27 @@ export default function SettingsPage() {
                       { label: "Two-Factor Auth", status: false, desc: "Not enabled" },
                       { label: "Passkeys", status: false, desc: "No passkeys registered" },
                     ].map((item) => (
-                      <div key={item.label} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                      <div key={item.label} className="flex items-center justify-between p-3 bg-slate-700/40 rounded-lg">
                         <div className="flex items-center gap-3">
                           <div className={cn(
                             "w-9 h-9 rounded-lg flex items-center justify-center",
-                            item.status ? "bg-green-100 dark:bg-green-900/30" : "bg-gray-100 dark:bg-gray-800"
+                            item.status ? "bg-emerald-500/15" : "bg-slate-700/40"
                           )}>
                             {item.status ? (
-                              <CheckCircle className="h-5 w-5 text-green-500" />
+                              <CheckCircle className="h-5 w-5 text-emerald-500" />
                             ) : (
-                              <XCircle className="h-5 w-5 text-gray-400" />
+                              <XCircle className="h-5 w-5 text-slate-400" />
                             )}
                           </div>
                           <div>
-                            <p className="font-medium text-sm">{item.label}</p>
-                            <p className="text-xs text-gray-500">{item.desc}</p>
+                            <p className="font-medium text-sm text-slate-100">{item.label}</p>
+                            <p className="text-xs text-slate-400">{item.desc}</p>
                           </div>
                         </div>
                         {item.status ? (
-                          <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">Enabled</Badge>
+                          <Badge className="bg-emerald-500/15 text-emerald-300 border-emerald-500/30">Enabled</Badge>
                         ) : (
-                          <Button variant="ghost" size="sm" className="text-orange-600 hover:text-orange-700">Enable</Button>
+                          <Button variant="ghost" size="sm" className="text-amber-primary hover:text-amber-glow">Enable</Button>
                         )}
                       </div>
                     ))}
@@ -489,39 +491,39 @@ export default function SettingsPage() {
 
           {/* Payment */}
           {activeSection === "payment" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+            <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold">Payment Methods</CardTitle>
                 <CardDescription>Manage your saved payment methods for quick checkout</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-slate-700/40 rounded-xl">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                      <CreditCard className="h-6 w-6 text-green-600 dark:text-green-400" />
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+                      <CreditCard className="h-6 w-6 text-emerald-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">M-Pesa</p>
-                      <p className="text-sm text-gray-500">Default • Ending in 7XX</p>
+                      <p className="font-medium text-slate-100">M-Pesa</p>
+                      <p className="text-sm text-slate-400">Default • Ending in 7XX</p>
                     </div>
                   </div>
-                  <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">Default</Badge>
+                  <Badge className="bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Default</Badge>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-slate-700/40 rounded-xl">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                      <CreditCard className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center">
+                      <CreditCard className="h-6 w-6 text-blue-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">Visa Card</p>
-                      <p className="text-sm text-gray-500">•••• •••• •••• 4242</p>
+                      <p className="font-medium text-slate-100">Visa Card</p>
+                      <p className="text-sm text-slate-400">•••• •••• •••• 4242</p>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-700">Remove</Button>
+                  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-300">Remove</Button>
                 </div>
 
-                <Button variant="outline" className="w-full gap-2">
+                <Button variant="outline" className="w-full gap-2 border-slate-border text-slate-300 hover:bg-slate-700/40">
                   <Plus className="h-4 w-4" />
                   Add Payment Method
                 </Button>
@@ -531,39 +533,39 @@ export default function SettingsPage() {
 
           {/* Delivery */}
           {activeSection === "delivery" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900">
+            <Card className="bg-obsidian-surface border border-slate-border rounded-2xl shadow-card-elev">
               <CardHeader>
                 <CardTitle className="text-lg font-semibold">Delivery Addresses</CardTitle>
                 <CardDescription>Manage your saved delivery addresses for parts orders</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-slate-700/40 rounded-xl">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+                    <div className="w-12 h-12 rounded-xl bg-amber-subtle flex items-center justify-center">
+                      <MapPin className="h-6 w-6 text-amber-primary" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">Home</p>
-                      <p className="text-sm text-gray-500">123 Kenyatta Avenue, Nairobi</p>
+                      <p className="font-medium text-slate-100">Home</p>
+                      <p className="text-sm text-slate-400">123 Kenyatta Avenue, Nairobi</p>
                     </div>
                   </div>
-                  <Badge className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">Default</Badge>
+                  <Badge className="bg-amber-subtle text-amber-glow border border-amber-primary/20">Default</Badge>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-slate-700/40 rounded-xl">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center">
+                      <MapPin className="h-6 w-6 text-blue-300" />
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">Work</p>
-                      <p className="text-sm text-gray-500">456 Moi Avenue, Nairobi</p>
+                      <p className="font-medium text-slate-100">Work</p>
+                      <p className="text-sm text-slate-400">456 Moi Avenue, Nairobi</p>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-700">Set Default</Button>
+                  <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-300">Set Default</Button>
                 </div>
 
-                <Button variant="outline" className="w-full gap-2">
+                <Button variant="outline" className="w-full gap-2 border-slate-border text-slate-300 hover:bg-slate-700/40">
                   <Plus className="h-4 w-4" />
                   Add Address
                 </Button>
@@ -573,18 +575,18 @@ export default function SettingsPage() {
 
           {/* Danger Zone */}
           {activeSection === "danger" && (
-            <Card className="border-0 shadow-sm bg-white dark:bg-gray-900 border border-red-100 dark:border-red-900/30">
+            <Card className="bg-obsidian-surface border rounded-2xl shadow-card-elev border-red-500/30">
               <CardHeader>
-                <CardTitle className="text-lg font-semibold flex items-center gap-2 text-red-600">
+                <CardTitle className="text-lg font-semibold flex items-center gap-2 text-red-400">
                   <AlertTriangle className="h-5 w-5" />
                   Danger Zone
                 </CardTitle>
                 <CardDescription>Irreversible actions - proceed with caution</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="p-4 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/30 rounded-xl">
-                  <h4 className="font-medium text-red-800 dark:text-red-300 mb-2">Delete Account</h4>
-                  <p className="text-sm text-red-700 dark:text-red-400 mb-4">
+                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                  <h4 className="font-medium text-red-300 mb-2">Delete Account</h4>
+                  <p className="text-sm text-red-400 mb-4">
                     Permanently delete your account and all associated data. This action cannot be undone.
                     You will lose access to your booking history, vehicles, and any pending services.
                   </p>
@@ -594,23 +596,23 @@ export default function SettingsPage() {
                   </Button>
                 </div>
 
-                <div className="p-4 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/30 rounded-xl">
-                  <h4 className="font-medium text-amber-800 dark:text-amber-300 mb-2">Sign Out Everywhere</h4>
-                  <p className="text-sm text-amber-700 dark:text-amber-400 mb-4">
+                <div className="p-4 bg-amber-subtle/10 border border-amber-primary/20 rounded-xl">
+                  <h4 className="font-medium text-amber-glow mb-2">Sign Out Everywhere</h4>
+                  <p className="text-sm text-slate-400 mb-4">
                     Sign out of all active sessions on all devices. You will need to sign in again.
                   </p>
-                  <Button variant="outline" className="gap-2 border-amber-300 text-amber-700 hover:bg-amber-50">
+                  <Button variant="outline" className="gap-2 border-amber-primary/30 text-amber-glow hover:bg-amber-subtle/20">
                     <LogOut className="h-4 w-4" />
                     Sign Out Everywhere
                   </Button>
                 </div>
 
-                <div className="p-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl">
-                  <h4 className="font-medium text-gray-800 dark:text-gray-300 mb-2">Export My Data</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                <div className="p-4 bg-slate-700/40 border border-slate-border rounded-xl">
+                  <h4 className="font-medium text-slate-100 mb-2">Export My Data</h4>
+                  <p className="text-sm text-slate-400 mb-4">
                     Download a copy of all your personal data including bookings, vehicles, and profile information.
                   </p>
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" className="gap-2 border-slate-border text-slate-300 hover:bg-slate-700/40">
                     <Download className="h-4 w-4" />
                     Request Data Export
                   </Button>

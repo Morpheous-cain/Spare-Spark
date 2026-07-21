@@ -62,6 +62,42 @@ const config: Config = {
           800: "#9a3412",
           900: "#7c2d12",
         },
+        // SpareSpark Sunset Amber design system (context/design-doc.txt)
+        amber: {
+          primary: "#FF5E3A",
+          hover: "#E04D2B",
+          glow: "#FF8A50",
+          subtle: "rgba(255, 94, 58, 0.12)",
+        },
+        obsidian: {
+          bg: "#0B0F17",
+          surface: "#161E2E",
+        },
+        slate: {
+          surface: "#161E2E",
+          border: "#2A3548",
+        },
+        status: {
+          success: "#10B981",
+          warning: "#F59E0B",
+          danger: "#EF4444",
+        },
+      },
+      backgroundImage: {
+        "amber-burst": "linear-gradient(135deg, #FF5E3A 0%, #FF8A50 100%)",
+        "radar-glow":
+          "radial-gradient(circle at 50% 30%, rgba(255, 94, 58, 0.18) 0%, rgba(11, 15, 23, 0) 70%)",
+        "surface-glass":
+          "linear-gradient(180deg, rgba(22, 30, 46, 0.8) 0%, rgba(22, 30, 46, 0.5) 100%)",
+      },
+      boxShadow: {
+        "amber-glow": "0px 4px 20px rgba(255, 94, 58, 0.35)",
+        "radar-pulse": "0px 0px 30px rgba(255, 138, 80, 0.25)",
+        "card-elev": "0px 10px 30px rgba(0, 0, 0, 0.4)",
+      },
+      fontFamily: {
+        sans: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

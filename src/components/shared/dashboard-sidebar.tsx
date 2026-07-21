@@ -10,7 +10,6 @@ import {
   User,
   Wrench,
   Radar,
-  Briefcase,
   DollarSign,
   Clock,
 } from "lucide-react"
@@ -28,6 +27,7 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>
 }
 
+// ponytail: only routes that resolve to real pages (context/design-doc §7 app-flow)
 const customerNav: NavItem[] = [
   { label: "Dashboard", href: "/customer/dashboard", icon: LayoutDashboard },
   { label: "Bookings", href: "/customer/bookings", icon: CalendarCheck },
@@ -39,7 +39,6 @@ const customerNav: NavItem[] = [
 const mechanicNav: NavItem[] = [
   { label: "Dashboard", href: "/mechanic/dashboard", icon: LayoutDashboard },
   { label: "Job Radar", href: "/mechanic/jobs", icon: Radar },
-  { label: "Active Job", href: "/mechanic/jobs/active", icon: Briefcase },
   { label: "Earnings", href: "/mechanic/earnings", icon: DollarSign },
   { label: "Availability", href: "/mechanic/availability", icon: Clock },
   { label: "Profile", href: "/mechanic/profile", icon: User },
@@ -61,25 +60,27 @@ export default function DashboardSidebar({
   const navItems = userRole === "customer" ? customerNav : mechanicNav
 
   const sidebarContent = (
-    <div className="flex h-full flex-col bg-white border-r border-gray-200">
-      {/* Logo */}
-      <div className="flex h-16 items-center gap-2 border-b border-gray-200 px-6">
-        <Wrench className="h-7 w-7 text-orange-500" />
-        <span className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-          Sparespark
+    <div className="flex h-full flex-col bg-obsidian-surface border-r border-slate-border">
+      {/* Logo — design-doc §1 brand accent */}
+      <div className="flex h-16 items-center gap-2.5 border-b border-slate-border px-6">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-burst shadow-amber-glow">
+          <Wrench className="h-5 w-5 text-white" />
+        </div>
+        <span className="text-xl font-bold tracking-tight text-slate-100">
+          Spare<span className="text-amber-primary">Spark</span>
         </span>
       </div>
 
-      {/* Navigation */}
+      {/* Navigation — 56px min touch targets (design-doc Rule 1) */}
       <motion.nav
-        className="flex-1 overflow-y-auto py-4 px-3 space-y-1"
+        className="flex-1 overflow-y-auto px-3 py-4 space-y-1"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {navItems.map((item) => {
           const Icon = item.icon
-          const isActive = activePath === item.href
+          const isActive = activePath === item.href || activePath.startsWith(item.href + "/")
 
           return (
             <motion.div key={item.href} variants={itemVariants}>
@@ -87,10 +88,10 @@ export default function DashboardSidebar({
                 href={item.href}
                 onClick={onClose}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                  "flex min-h-[56px] items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "bg-orange-50 text-orange-600"
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    ? "bg-amber-subtle text-amber-glow border border-amber-primary/30 shadow-amber-glow"
+                    : "text-slate-300 hover:bg-slate-700/40 hover:text-white border border-transparent"
                 )}
               >
                 <Icon className="h-5 w-5 shrink-0" />
@@ -101,9 +102,9 @@ export default function DashboardSidebar({
         })}
       </motion.nav>
 
-      {/* Role badge */}
-      <div className="border-t border-gray-200 px-6 py-4">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700 capitalize">
+      {/* Role badge — design-doc §2 status pills */}
+      <div className="border-t border-slate-border px-6 py-4">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-subtle px-3 py-1.5 text-xs font-semibold capitalize text-amber-glow">
           <Wrench className="h-3 w-3" />
           {userRole}
         </span>
@@ -116,7 +117,7 @@ export default function DashboardSidebar({
       {/* Mobile overlay */}
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm lg:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -124,10 +125,10 @@ export default function DashboardSidebar({
         />
       )}
 
-      {/* Mobile sidebar */}
+      {/* Mobile sidebar — w-72 design-doc §4 */}
       <motion.aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 -translate-x-full transition-transform duration-300 lg:hidden",
+          "fixed inset-y-0 left-0 z-50 w-72 -translate-x-full transition-transform duration-300 lg:hidden",
           isOpen && "translate-x-0"
         )}
       >
@@ -135,7 +136,7 @@ export default function DashboardSidebar({
       </motion.aside>
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col">
         {sidebarContent}
       </aside>
     </>
